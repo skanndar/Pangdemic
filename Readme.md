@@ -173,12 +173,12 @@ The game is won when the player destroys all the viruses.
 
 ### Trello
 
-[Link url](https://trello.com/invite/b/0VjAAZ5H/f3ea8c975f1011a647c9bc726fc656af/ironhack-project-1)
+[Link url](https://trello.com/invite/b/GxrgJtj8/2276ff29e101daded0b42905441d7fd3/ironhack)
 
 ### Git
 
-[Link Repo](https://github.com/caprosset/why-did-the-chicken-cross-the-road) -
-[Link Deploy](https://caprosset.github.io/why-did-the-chicken-cross-the-road/)
+[Link Repo](https://github.com/skanndar/Pangdemic.git) -
+[Link Deploy]()
 
 ### Slides
 

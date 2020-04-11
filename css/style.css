@@ -1,0 +1,230 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* style starts here */
+/* ---- typography ----  background ----*/
+body {
+  background: url(/../img/09-03-2020-coronavirus.jpg) no-repeat center center
+    fixed;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 147%;
+}
+
+#startscreen {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+#startscreen h1 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 200px 330px;
+  font-size: 5em;
+  background-color: rgba(1, 255, 255, 0.4);
+  color: white;
+}
+
+#startscreen button {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 100px;
+}
+
+/* ---- layout ---- */
+
+html,
+body {
+  height: 100%;
+}
+footer {
+  height: 100px;
+  background-color: rgba(255, 255, 255,0.4);
+}
+
+.container {
+  margin: 0 20px;
+  /* background-image: url(https://wallpaperaccess.com/full/17493.jpg); */
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 98%; /* Resizes the container to 728px for large screens */
+    margin: 0 auto;
+  }
+}
+.game .canvas-container {
+  flex: 1;
+}
+.game {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+div.button {
+  text-align: center;
+}
+
+/* ---- 
+  @media (min-width: 768px) {
+    .container {
+      max-width: 728px; /* Resizes the container to 728px for large screens 
+      margin: 0 auto;
+    }
+  }
+  
+  /* ---- components 
+  
+ 
+  
+  .game header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .game .lives {
+    flex: 1;
+  }
+  
+  .game .score {
+    flex: 1;
+  }
+  
+  .game .label {
+    font-weight: bold;
+  }
+  
+  .game .value {
+    font-style: italic;
+  }
+  
+  .game .canvas-container {
+    flex: 1;
+  } ---- */

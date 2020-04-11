@@ -40,9 +40,19 @@ class Game {
         this.player.setDirection('right')
       }
     }
+    function handleKeyUp (event) {
+      if (event.key === 'ArrowLeft') {
+        this.player.setDirection('stop')
+      } else if (event.key === 'ArrowRight') {
+        this.player.setDirection('stop')
+      }
+    }
 
     const boundHandleKeyDown = handleKeyDown.bind(this)
     document.addEventListener('keydown', boundHandleKeyDown)
+
+    const boundHandleKeyUp = handleKeyUp.bind(this)
+    document.addEventListener('keyup', boundHandleKeyUp)
 
     // Start the canvas requestAnimationFrame loop
     this.startLoop()

@@ -9,29 +9,30 @@ class Player {
     this.size = 100
     this.x = this.canvas.width / 2 - this.size / 2
     this.y = this.canvas.height - this.size
-    this.direction = 0 //  0 not moving  // -1 moving up   // 1 moving down
+    this.direction = 0 //  0 not moving  // -1 moving left   // 1 moving right
     this.speed = 15
 
-    this.playerLeft = this.y
-    this.playerRight = this.y + this.size
+    this.playerLeft = this.x
+    this.playerRight = this.x + this.size
 
-    this.screenTop = 0 //  y = 0
-    this.screenBottom = this.canvas.height
+    this.screenLeft = 0 //  y = 0
+    this.screenRigth = this.canvas.width
   }
 
   setDirection (direction) {
     if (direction === 'left') this.direction = -1
     else if (direction === 'right') this.direction = 1
+    else{ this.direction = 0}
   }
 
   handleScreenCollision () {
-    const { playerRight, screenBottom, playerLeft, screenTop } = this
+    const { playerRight, screenRigth, playerLeft, screenLeft } = this
 
-    // If the player touched the bottom
+    // If the player touched the wall
 
-    if (playerRight >= screenBottom) {
+    if (playerRight >= screenRigth) {
       this.setDirection('left')
-    } else if (playerLeft <= screenTop) {
+    } else if (playerLeft <= screenLeft) {
       this.setDirection('right')
     }
   }
@@ -43,8 +44,8 @@ class Player {
     this.playerLeft = this.x
     this.playerRight = this.x + this.size
 
-    this.screenTop = 0 //  y = 0
-    this.screenBottom = this.canvas.width
+    this.screenLeft = 0 //  y = 0
+    this.screenRigth = this.canvas.width
   }
 
   removeLife () {

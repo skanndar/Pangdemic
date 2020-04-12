@@ -2,17 +2,17 @@
 
 class Virus {
 // class Enemy {
-  constructor (canvas, speed) {
+  constructor (canvas) {
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
 
     this.size = 50
     this.y = 100
     this.x = this.canvas.width / 2 - this.size / 2
-    this.speed = speed
+
     this.bounce = 0.95
     this.xSpeed = 10
-    this.ySpeed = 7
+    this.ySpeed = 6
     this.gravity = 2
   }
 

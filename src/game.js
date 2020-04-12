@@ -9,14 +9,19 @@ class Game {
     this.gameScreen = null
     this.canvas = null
     this.ctx = null
+    this.loopId = []
+    this.liveTaken = false
+    this.lives = 10
   }
 
   // instantiate the player, set the canvas ,and start the canvas loop
-  start () {
+  start (lives) {
     // Save reference to canvas and container, create ctx
     const canvasContainer = document.querySelector('.canvas-container')
     this.canvas = this.gameScreen.querySelector('canvas')
     this.ctx = this.canvas.getContext('2d')
+    // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+
 
     // Save the reference to lives and score elements
     this.livesElement = this.gameScreen.querySelector('.lives .value')
@@ -29,8 +34,10 @@ class Game {
     this.canvas.width = this.containerWidth
     this.canvas.height = this.containerHeight
 
-    this.player = new Player(this.canvas, 20)
-    this.virus = new Virus(this.canvas, 5)
+    // instantiate Player and Viruses
+
+    this.player = new Player(this.canvas, lives)
+    this.virus = new Virus(this.canvas)
 
     // Event listener for moving the player
     function handleKeyDown (event) {
@@ -97,8 +104,9 @@ class Game {
       this.virus.draw()
 
       // 4. TERMINATE LOOP IF GAME IS OVER
-      if (this.gameIsOver === false) {
-        requestAnimationFrame(loop) // animation loop
+      if (this.gameIsOver === false && this.liveTaken === false) {
+        this.loopId = requestAnimationFrame(loop) // animation loop
+        console.log('this.loopId :', this.loopId)
       }
 
       // 5. UPDATE GAME STATUS
@@ -115,9 +123,19 @@ class Game {
     if (this.player.didCollide(this.virus)) {
       this.player.removeLife()
       console.log('Player lives', this.player.lives)
+      this.liveTaken = true
+
+      // cancel loop
+      // cancelAnimationFrame(this.loopId)
+
+      // restart game when collision occurs
 
       if (this.player.lives <= 0) {
         this.gameOver()
+      } else {
+        // this.loopId.forEach(loop => cancelAnimationFrame(loop))
+        debugger
+        this.start(this.player.lives)
       }
     }
   }
@@ -132,4 +150,11 @@ class Game {
     this.livesElement.innerHTML = this.player.lives
     this.scoreElement.innerHTML = this.score
   }
+  // function restart(lives){
+
+  // }
 }
+
+// this.loopId.forEach((loop) => {cancelAnimationFrame(loop)})
+// this.liveTaken = false
+// this.start()

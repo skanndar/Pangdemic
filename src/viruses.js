@@ -63,4 +63,10 @@ class Virus {
     const playerRight = this.y + this.size
     return playerRight < 0
   }
+
+  startPosition () {
+    this.y = 100
+    this.x = this.canvas.width / 2 - this.size / 2
+    this.draw()
+  }
 }

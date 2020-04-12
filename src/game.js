@@ -22,7 +22,6 @@ class Game {
     this.ctx = this.canvas.getContext('2d')
     // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-
     // Save the reference to lives and score elements
     this.livesElement = this.gameScreen.querySelector('.lives .value')
     this.scoreElement = this.gameScreen.querySelector('.score .value')
@@ -104,7 +103,7 @@ class Game {
       this.virus.draw()
 
       // 4. TERMINATE LOOP IF GAME IS OVER
-      if (this.gameIsOver === false && this.liveTaken === false) {
+      if (this.gameIsOver === false) {
         this.loopId = requestAnimationFrame(loop) // animation loop
         console.log('this.loopId :', this.loopId)
       }
@@ -121,9 +120,9 @@ class Game {
     // remedy is `thisArg` or using arrow function as a callback
     // this.viruses.forEach( (virus) => {
     if (this.player.didCollide(this.virus)) {
-      this.player.removeLife()
       console.log('Player lives', this.player.lives)
-      this.liveTaken = true
+      // this.liveTaken = true
+      this.player.removeLife()
 
       // cancel loop
       // cancelAnimationFrame(this.loopId)
@@ -133,9 +132,8 @@ class Game {
       if (this.player.lives <= 0) {
         this.gameOver()
       } else {
-        // this.loopId.forEach(loop => cancelAnimationFrame(loop))
-        debugger
-        this.start(this.player.lives)
+        // restart the game positions with the new live count
+        this.restartPositions()
       }
     }
   }
@@ -150,9 +148,11 @@ class Game {
     this.livesElement.innerHTML = this.player.lives
     this.scoreElement.innerHTML = this.score
   }
-  // function restart(lives){
 
-  // }
+  restartPositions () {
+    this.player.startPosition()
+    this.virus.startPosition()
+  }
 }
 
 // this.loopId.forEach((loop) => {cancelAnimationFrame(loop)})

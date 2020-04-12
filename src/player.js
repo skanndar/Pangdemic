@@ -50,6 +50,7 @@ class Player {
 
   removeLife () {
     this.lives -= 1
+    // game.liveTaken = false
   }
 
   draw () {
@@ -84,5 +85,11 @@ class Player {
     } else {
       false
     }
+  }
+
+  startPosition () {
+    this.x = this.canvas.width / 2 - this.size / 2
+    this.y = this.canvas.height - this.size
+    this.draw()
   }
 }

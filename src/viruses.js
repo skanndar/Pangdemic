@@ -10,10 +10,10 @@ class Virus {
     this.y = 100
     this.x = this.canvas.width / 2 - this.size / 2
 
-    this.bounce = 0.95
-    this.xSpeed = 10
-    this.ySpeed = 6
-    this.gravity = 2
+    this.bounce = 0.93
+    this.xSpeed = 9
+    this.ySpeed = 3
+    this.gravity = 3
   }
 
   draw () {
@@ -38,7 +38,7 @@ class Virus {
       this.xSpeed *= -1
     }
     // Ball hits the top or floor
-    if (this.y + this.size > this.canvas.height || this.y - this.size < 0) {
+    if (this.y + this.size > this.canvas.height) {
       // Re-positioning on the base
       this.y = this.canvas.height - this.size
       // bounce the ball
@@ -51,18 +51,21 @@ class Virus {
       //      this.xSpeed=0;
 
       //  xF();
+    } else if (this.y < 50) {
+      this.y = 50
+      this.ySpeed *= -this.bounce/2
     }
   }
 
-  isInsideScreen () {
-    const playerRight = this.y + this.size
-    return playerRight > 0
-  }
+  // isInsideScreen () {
+  //   const playerRight = this.y + this.size
+  //   return playerRight > 0
+  // }
 
-  isOutsideScreen () {
-    const playerRight = this.y + this.size
-    return playerRight < 0
-  }
+  // isOutsideScreen () {
+  //   const playerRight = this.y + this.size
+  //   return playerRight < 0
+  // }
 
   startPosition () {
     this.y = 100

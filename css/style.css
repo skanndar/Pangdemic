@@ -126,7 +126,7 @@ table {
 /* style starts here */
 /* ---- typography ----  background ----*/
 body {
-  background: url(/img/09-03-2020-coronavirus.jpg) no-repeat center center
+  background: url('img/09-03-2020-coronavirus.jpg') no-repeat center center
     fixed;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 16px;

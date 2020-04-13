@@ -29,7 +29,7 @@ class Player {
 
     this.screenLeft = 0 //  y = 0
     this.screenRigth = this.canvas.width
-    this.character = new Image(); this.character.src = '/img/img/Sally.png' // 128 x 256 (4x4)
+    this.character = new Image(); this.character.src = '../img/img/Sally.png' // 128 x 256 (4x4)
   }
 
   // display the character animation

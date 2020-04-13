@@ -10,10 +10,10 @@ class Virus {
     this.y = 100
     this.x = this.canvas.width / 2 - this.size / 2
 
-    this.bounce = 0.93
-    this.xSpeed = 9
-    this.ySpeed = 3
-    this.gravity = 3
+    this.bounce = 0.97
+    this.xSpeed = 4
+    this.ySpeed =1
+    this.gravity = 1
   }
 
   draw () {
@@ -51,9 +51,9 @@ class Virus {
       //      this.xSpeed=0;
 
       //  xF();
-    } else if (this.y < 50) {
-      this.y = 50
-      this.ySpeed *= -this.bounce/3
+    } else if (this.y < this.size + 10) {
+      this.y = this.size + 10
+      this.ySpeed *= +this.bounce // '+' makes magnetic ceiling, '-' makes higher acceleration
     }
   }
 
@@ -68,8 +68,8 @@ class Virus {
   // }
 
   startPosition () {
-    this.y = 100
-    this.x = this.canvas.width / 2 - this.size / 2
-    this.draw()
+    this.y = 500
+    this.x = 200
+    // this.draw()
   }
 }

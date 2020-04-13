@@ -17,6 +17,7 @@ class Player {
     this.totalSpriteHeight = 256
     this.frames = 4
     this.columns = 4
+    this.framesCounter = 0
 
     this.x = this.canvas.width / 2 - this.sizeX / 2
     this.y = this.canvas.height - this.sizeY
@@ -28,7 +29,7 @@ class Player {
 
     this.screenLeft = 0 //  y = 0
     this.screenRigth = this.canvas.width
-    this.character = new Image(); this.character.src = '../img/img/Sally.png' // 128 x 256 (4x4)
+    this.character = new Image(); this.character.src = '/img/img/Sally.png' // 128 x 256 (4x4)
   }
 
   // display the character animation
@@ -57,15 +58,18 @@ class Player {
   }
 
   draw () {
-    if (this.direction === -1) {
-      this.moveLeft()
-    } else if (this.direction === 0) {
-      this.iddle()
-    } else {
-      this.moveRight()
+    this.framesCounter++
+    if (this.framesCounter % 3 === 0) {
+      if (this.direction === -1) {
+        this.moveLeft()
+      } else if (this.direction === 0) {
+        this.iddle()
+      } else {
+        this.moveRight()
+      }
     }
     console.log(this)
-    //debugger
+    // debugger
     this.ctx.drawImage(
       this.character, // image source
       this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
@@ -138,6 +142,6 @@ class Player {
   startPosition () {
     this.x = this.canvas.width / 2 - this.sizeX / 2
     this.y = this.canvas.height - this.sizeY
-    this.draw()
+    // this.draw()
   }
 }

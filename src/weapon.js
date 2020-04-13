@@ -32,3 +32,5 @@ class Weapon {
     this.weapon = new Image(); this.character.src = '../img/img/Sally.png' // 128 x 256 (4x4)
   }
 }
+
+

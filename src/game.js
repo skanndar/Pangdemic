@@ -9,18 +9,15 @@ class Game {
     this.gameScreen = null
     this.canvas = null
     this.ctx = null
-    this.loopId = []
-    this.liveTaken = false
     this.lives = 10
+    this.bullet = []
   }
 
-  // instantiate the player, set the canvas ,and start the canvas loop
-  start (lives) {
+  start (lives) { // instantiate the player, set the canvas ,and start the canvas loop
     // Save reference to canvas and container, create ctx
     const canvasContainer = document.querySelector('.canvas-container')
     this.canvas = this.gameScreen.querySelector('canvas')
     this.ctx = this.canvas.getContext('2d')
-    // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
     // Save the reference to lives and score elements
     this.livesElement = this.gameScreen.querySelector('.lives .value')
@@ -34,7 +31,6 @@ class Game {
     this.canvas.height = this.containerHeight
 
     // instantiate Player and Viruses
-
     this.player = new Player(this.canvas, lives)
     this.virus = new Virus(this.canvas)
 
@@ -44,6 +40,10 @@ class Game {
         this.player.setDirection('left')
       } else if (event.key === 'ArrowRight') {
         this.player.setDirection('right')
+      } else if (event.key === ' ') {
+        // console.log('object :', this.weapon.shoot)
+
+        this.bullet[0].shoot = true
       }
     }
     function handleKeyUp (event) {
@@ -51,6 +51,9 @@ class Game {
         this.player.setDirection('stop')
       } else if (event.key === 'ArrowRight') {
         this.player.setDirection('stop')
+      // } else if (event.key === ' ') {
+      //   console.log('object :', this.weapon.shoot)
+      //   this.weapon.shoot = false
       }
     }
 
@@ -66,15 +69,7 @@ class Game {
 
   startLoop () {
     const loop = function () {
-      // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
-      // 1.1 Create new enemies randomly
-      // if (Math.random() > 0.993) {
-      // const randomHeightPos = this.canvas.width * Math.random()
-      // const newVirus = new Virus(this.canvas, 5)
-
-      // this.viruses.push(newVirus)
-      // }
-
+      // 1. UPDATE THE STATE OF PLAYER, VIRUSES AND BULLETS
       // 1.2. Check if player had hit any Virus
       this.checkCollisons()
 
@@ -82,10 +77,20 @@ class Game {
       this.player.handleScreenCollision()
       this.player.updatePosition()
 
-      // 1.4  Move all the enemies
-      // 1.5  Check if virus is off the screen
       // const enemiesOnScreen = this.viruses.filter(function (virus) {
       this.virus.updatePosition()
+      const newbullet = new Weapon(this.canvas, this.player)
+      if (this.bullet.length < 1) {
+        this.bullet.push(newbullet)
+      }
+
+      const bulletsOnScreen = this.bullet.filter(function (bullet) {
+        bullet.updatePosition()
+        const isInsideScreen = bullet.isInsideScreen()
+        return isInsideScreen // true or false
+      })
+      this.bullet = bulletsOnScreen
+
       // const isInsideScreen = virus.isInsideScreen()
 
       // return isInsideScreen // true false
@@ -101,14 +106,25 @@ class Game {
 
       // 3.2 Draw all enemies
       this.virus.draw()
+      this.bullet.forEach(bullet => {
+        bullet.draw()
+        bullet.handleScreenCollision()
+      })
+
+      // 3.3 Draw bullets
+      // if (this.weapon.isInsideScreen) {
+      //   this.bullet.forEach(bullet => bullet.draw())
+      // } else {
+      //   this.bullet.shoot = false
+      //   this.bullet.pop()
+      // }
 
       // 4. TERMINATE LOOP IF GAME IS OVER
       if (this.gameIsOver === false) {
-        this.loopId = requestAnimationFrame(loop) // animation loop
-        console.log('this.loopId :', this.loopId)
+        requestAnimationFrame(loop) // animation loop
       }
 
-      // 5. UPDATE GAME STATUS
+      // 5. UPDATE GAME STATS
       this.updateGameStats()
     }.bind(this)
 
@@ -116,18 +132,9 @@ class Game {
   }
 
   checkCollisons () {
-    // array method callbacks loose the value of `this`
-    // remedy is `thisArg` or using arrow function as a callback
-    // this.viruses.forEach( (virus) => {
     if (this.player.didCollide(this.virus)) {
       console.log('Player lives', this.player.lives)
-      // this.liveTaken = true
       this.player.removeLife()
-
-      // cancel loop
-      // cancelAnimationFrame(this.loopId)
-
-      // restart game when collision occurs
 
       if (this.player.lives <= 0) {
         this.gameOver()
@@ -136,6 +143,11 @@ class Game {
         this.restartPositions()
       }
     }
+    this.bullet.forEach(bullet => {
+      if (bullet.didCollide(this.virus)) {
+        console.log('virus must divide')
+      }
+    })
   }
 
   gameOver () {
@@ -154,7 +166,3 @@ class Game {
     this.virus.startPosition()
   }
 }
-
-// this.loopId.forEach((loop) => {cancelAnimationFrame(loop)})
-// this.liveTaken = false
-// this.start()

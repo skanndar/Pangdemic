@@ -1,36 +1,102 @@
 'use strict'
 
 class Weapon {
-  constructor (canvas) {
+  constructor (canvas, player) {
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
 
-    //image properties
-    this.sizeX = 32 * 1.5
-    this.sizeY = 64 * 1.5
-    this.spriteWidth = 32
-    this.spriteHeight = 64
+    // image properties
+    this.totalSpriteWidth = 390
+    this.totalSpriteHeight = 512
+    this.spriteHeight = Number((this.totalSpriteHeight / 12).toFixed(2))
+    this.spriteWidth = Number((this.totalSpriteWidth / 9).toFixed(2))
+    this.sizeY = this.spriteHeight / 2
+    this.sizeX = this.spriteWidth / 2
     this.sourceWidth = 0
     this.sourceHeight = 0
     this.currentFrame = 0
-    this.totalSpriteWidth = 128
-    this.totalSpriteHeight = 256
-    this.frames = 4
-    this.columns = 4
+    this.frames = 106
+    this.columns = 9
     this.framesCounter = 0
 
-    this.x = this.canvas.width / 2 - this.sizeX / 2
-    this.y = this.canvas.height - this.sizeY
-    this.direction = 0 //  0 not moving  // -1 moving left   // 1 moving right
-    this.speed = 15
+    this.x = player.x
+    this.y = canvas.height
 
-    this.playerLeft = this.x
-    this.playerRight = this.x + this.sizeX
+    this.speed = -20
+    this.shoot = false
 
-    this.screenLeft = 0 //  y = 0
-    this.screenRigth = this.canvas.width
-    this.weapon = new Image(); this.character.src = '../img/img/Sally.png' // 128 x 256 (4x4)
+    this.bulletTop = this.y
+    this.bulletBottom = this.y + this.sizeY
+
+    this.screenTop = 0 //  y = 0
+    this.screenBottom = this.canvas.height
+    this.weapon = new Image(); this.weapon.src = '../img/img/mixWeapons.png' // 390 x 512 (9x12) last two positions are blank
+  }
+
+  shooting () {
+    this.sourceWidth = 42 // Math.floor(this.currentFrame % this.columns) * this.spriteWidth
+    this.sourceHeight = 43 // Math.floor(Math.random() * 12) * this.spriteHeight
+    this.currentFrame = (this.currentFrame + 1) % this.frames
+  }
+
+  draw () {
+    if (this.shoot === true) {
+      this.shooting()
+      //   console.log(this.x, this.y, this.sizeX, this.sizeY)
+      //   // this.ctx.fillStyle = 'red'
+      // this.ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY)
+
+      this.ctx.drawImage(
+        this.weapon, // image source
+        this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
+        this.x, this.y, this.sizeX, this.sizeY // destination coordinates
+      )
+    }
+  }
+
+  updatePosition () {
+    // update the bullet position
+    this.y = this.y + this.speed
+
+    this.bulletTop = this.y
+    this.bulletBottom = this.y + this.sizeY
+  }
+
+  handleScreenCollision () {
+    const { bulletTop, screenTop } = this
+
+    // If the bullet touched the ceiling
+
+    if (bulletTop <= screenTop) {
+      console.log('bulletTop :', bulletTop)
+    }
+  }
+
+  didCollide (virus) { // How can I bind this function? It exists in player.js
+    // true or false if player hit an virus
+    const bulletLeft = this.x
+    const bulletRight = this.x + this.sizeX
+    const bulletTop = this.y
+    const bulletBottom = this.y + this.sizeY
+
+    const virusLeft = virus.x
+    const virusRight = virus.x + virus.size
+    const virusTop = virus.y
+    const virusBottom = virus.y + virus.size
+
+    const crossLeft = virusLeft <= bulletRight && virusLeft >= bulletLeft
+    const crossRight = virusRight >= bulletLeft && virusRight <= bulletRight
+    const crossTop = virusTop <= bulletBottom && virusTop >= bulletTop
+    const crossBottom = virusBottom >= bulletTop && virusBottom <= bulletBottom
+
+    if ((crossLeft || crossRight) && (crossTop || crossBottom)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  isInsideScreen () {
+    return this.y > 0
   }
 }
-
-

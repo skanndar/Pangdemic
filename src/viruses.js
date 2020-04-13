@@ -6,24 +6,20 @@ class Virus {
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
 
-    this.size = 50
-    this.y = 100
+    this.size = 100
+    this.y = 0
     this.x = this.canvas.width / 2 - this.size / 2
 
-    this.bounce = 0.97
-    this.xSpeed = 4
-    this.ySpeed =1
-    this.gravity = 1
+    this.bounce = 0.96
+    this.xSpeed = 12
+    this.ySpeed = 3
+    this.gravity = 3
+    this.img1 = new Image(); this.img1.src = '/img/img/Infected.png'
   }
 
   draw () {
     this.ctx.fillStyle = 'red'
-    this.ctx.beginPath()
-    this.ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false)
-    this.ctx.fill()
-    this.ctx.lineWidth = 5
-    this.ctx.strokeStyle = '#003300'
-    this.ctx.closePath()
+    this.ctx.drawImage(this.img1, this.x, this.y, this.size, this.size)
   }
 
   updatePosition () {
@@ -37,35 +33,17 @@ class Virus {
     if (this.x + this.size > this.canvas.width || this.x - this.size < 0) {
       this.xSpeed *= -1
     }
-    // Ball hits the top or floor
+    // Ball hits the top or bottom
     if (this.y + this.size > this.canvas.height) {
       // Re-positioning on the base
       this.y = this.canvas.height - this.size
       // bounce the ball
       this.ySpeed *= -this.bounce
-      // //do this otherwise, ball never stops bouncing
-      //   if(this.ySpeed<0 && this.ySpeed>-2.1)
-      //              this.ySpeed=0;
-      // //do this otherwise ball never stops on xaxis
-      //  if(Math.abs(this.xSpeed)<1.1)
-      //      this.xSpeed=0;
-
-      //  xF();
-    } else if (this.y < this.size + 10) {
-      this.y = this.size + 10
+    } else if (this.y <= this.size) {
+      this.y = this.size
       this.ySpeed *= +this.bounce // '+' makes magnetic ceiling, '-' makes higher acceleration
     }
   }
-
-  // isInsideScreen () {
-  //   const playerRight = this.y + this.size
-  //   return playerRight > 0
-  // }
-
-  // isOutsideScreen () {
-  //   const playerRight = this.y + this.size
-  //   return playerRight < 0
-  // }
 
   startPosition () {
     this.y = 500

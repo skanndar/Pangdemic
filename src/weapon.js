@@ -30,7 +30,7 @@ class Weapon {
 
     this.screenTop = 0 //  y = 0
     this.screenBottom = this.canvas.height
-    this.weapon = new Image(); this.weapon.src = '../img/img/mixWeapons.png' // 390 x 512 (9x12) last two positions are blank
+    this.weapon = new Image(); this.weapon.src = 'img/img/mixWeapons.png' // 390 x 512 (9x12) last two positions are blank
   }
 
   shooting () {

@@ -53,7 +53,7 @@ class Virus {
       //  xF();
     } else if (this.y < 50) {
       this.y = 50
-      this.ySpeed *= -this.bounce/2
+      this.ySpeed *= -this.bounce/3
     }
   }
 

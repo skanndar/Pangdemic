@@ -6,17 +6,72 @@ class Player {
 
     this.lives = lives
 
-    this.size = 100
-    this.x = this.canvas.width / 2 - this.size / 2
-    this.y = this.canvas.height - this.size
+    this.sizeX = 32 * 1.5
+    this.sizeY = 64 * 1.5
+    this.spriteWidth = 32
+    this.spriteHeight = 64
+    this.sourceWidth = 0
+    this.sourceHeight = 0
+    this.currentFrame = 0
+    this.totalSpriteWidth = 128
+    this.totalSpriteHeight = 256
+    this.frames = 4
+    this.columns = 4
+
+    this.x = this.canvas.width / 2 - this.sizeX / 2
+    this.y = this.canvas.height - this.sizeY
     this.direction = 0 //  0 not moving  // -1 moving left   // 1 moving right
     this.speed = 15
 
     this.playerLeft = this.x
-    this.playerRight = this.x + this.size
+    this.playerRight = this.x + this.sizeX
 
     this.screenLeft = 0 //  y = 0
     this.screenRigth = this.canvas.width
+    this.character = new Image(); this.character.src = '../img/img/Sally.png' // 128 x 256 (4x4)
+  }
+
+  // display the character animation
+  display () {
+    // this.spriteWidth = Math.floor(this.currentFrame % this.columns) * this.totalSpriteWidth
+    // this.spriteHeight = Math.floor(this.currentFrame / this.columns) * this.totalSpriteHeight
+    this.currentFrame = (this.currentFrame + 1) % this.frames
+  }
+
+  moveLeft () {
+    this.sourceWidth = Math.floor(this.currentFrame % this.columns) * this.spriteWidth
+    this.sourceHeight = 0
+    this.currentFrame = (this.currentFrame + 1) % this.frames
+  }
+
+  moveRight () {
+    this.sourceWidth = Math.floor(this.currentFrame % this.columns) * this.spriteWidth
+    this.sourceHeight = 128
+    this.currentFrame = (this.currentFrame + 1) % this.frames
+  }
+
+  iddle () {
+    this.sourceWidth = Math.floor(this.currentFrame % this.columns) * this.spriteWidth
+    this.sourceHeight = 64
+    this.currentFrame = (this.currentFrame + 1) % this.frames
+  }
+
+  draw () {
+    if (this.direction === -1) {
+      this.moveLeft()
+    } else if (this.direction === 0) {
+      this.iddle()
+    } else {
+      this.moveRight()
+    }
+    console.log(this)
+    //debugger
+    this.ctx.drawImage(
+      this.character, // image source
+      this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
+      this.x, this.y, this.sizeX, this.sizeY // destination coordinates
+
+    )
   }
 
   setDirection (direction) {
@@ -42,7 +97,7 @@ class Player {
     this.x = this.x + this.direction * this.speed
 
     this.playerLeft = this.x
-    this.playerRight = this.x + this.size
+    this.playerRight = this.x + this.sizeX
 
     this.screenLeft = 0 //  y = 0
     this.screenRigth = this.canvas.width
@@ -53,19 +108,12 @@ class Player {
     // game.liveTaken = false
   }
 
-  draw () {
-    this.ctx.fillStyle = 'magenta'
-    // ctx.fillRect(x, y, width, height)
-
-    this.ctx.fillRect(this.x, this.y, this.size, this.size)
-  }
-
   didCollide (enemy) {
     // true or false if player hit an enemy
     const playerLeft = this.x
-    const playerRight = this.x + this.size
+    const playerRight = this.x + this.sizeX
     const playerTop = this.y
-    const playerBottom = this.y + this.size
+    const playerBottom = this.y + this.sizeY
 
     const enemyLeft = enemy.x
     const enemyRight = enemy.x + enemy.size
@@ -88,8 +136,8 @@ class Player {
   }
 
   startPosition () {
-    this.x = this.canvas.width / 2 - this.size / 2
-    this.y = this.canvas.height - this.size
+    this.x = this.canvas.width / 2 - this.sizeX / 2
+    this.y = this.canvas.height - this.sizeY
     this.draw()
   }
 }

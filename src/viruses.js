@@ -5,9 +5,9 @@ class Virus {
   constructor (canvas, size, direction, strength = 0) {
     let xSpeed
     if (direction === 'left') {
-      xSpeed = -6
+      xSpeed = -7
     } else {
-      xSpeed = 6
+      xSpeed = 7
     }
     this.strength = strength
 
@@ -26,8 +26,8 @@ class Virus {
   }
 
   draw () {
-    //this.ctx.fillStyle = 'red'
-    //this.ctx.fillRect(this.x, this.y, this.size, this.size)
+    // this.ctx.fillStyle = 'red'
+    // this.ctx.fillRect(this.x, this.y, this.size, this.size)
     this.ctx.drawImage(this.img1, this.x, this.y, this.size, this.size)
   }
 

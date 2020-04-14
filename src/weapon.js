@@ -8,23 +8,23 @@ class Weapon {
     this.ctx = this.canvas.getContext('2d')
 
     // image properties
-    this.totalSpriteWidth = 390
-    this.totalSpriteHeight = 512
-    this.spriteHeight = Number((this.totalSpriteHeight / 12).toFixed(2))
-    this.spriteWidth = Number((this.totalSpriteWidth / 9).toFixed(2))
+    this.totalSpriteWidth = 92
+    this.totalSpriteHeight = 22
+    this.spriteHeight = Number((this.totalSpriteHeight / 1).toFixed(2))
+    this.spriteWidth = Number((this.totalSpriteWidth / 4).toFixed(2))
     this.sizeY = this.spriteHeight / 2
     this.sizeX = this.spriteWidth / 2
     this.sourceWidth = 0
     this.sourceHeight = 0
     this.currentFrame = 0
-    this.frames = 106
-    this.columns = 9
+    this.frames = 4
+    this.columns = 4
     this.framesCounter = 0
 
     this.x = (player.x + player.sizeX / 2) - this.sizeX / 2
     this.y = canvas.height - player.sizeY / 2
 
-    this.speed = -20
+    this.speed = -11
     this.shoot = false
 
     this.bulletTop = this.y
@@ -32,18 +32,20 @@ class Weapon {
 
     this.screenTop = 0 //  y = 0
     this.screenBottom = this.canvas.height
-    this.weapon = new Image(); this.weapon.src = 'img/img/mixWeapons.png' // 390 x 512 (9x12) last two positions are blank
+    this.weapon = new Image(); this.weapon.src = 'img/img/pillMove.png' // 390 x 512 (9x12) last two positions are blank
   }
 
   shooting () {
-    this.sourceWidth = 42 // Math.floor(this.currentFrame % this.columns) * this.spriteWidth
-    this.sourceHeight = 43 // Math.floor(Math.random() * 12) * this.spriteHeight
+    this.sourceWidth = Math.floor(this.currentFrame % this.columns) * this.spriteWidth
+    this.sourceHeight = 0 // Math.floor(Math.random() * 12) * this.spriteHeight
     this.currentFrame = (this.currentFrame + 1) % this.frames
   }
 
   draw () {
-    // if (this.shoot === true) {
-    this.shooting()
+    this.framesCounter++
+    if (this.framesCounter % 2 === 0) {
+      this.shooting()
+    }
     //   console.log(this.x, this.y, this.sizeX, this.sizeY)
     //   // this.ctx.fillStyle = 'red'
     // this.ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY)
@@ -51,7 +53,7 @@ class Weapon {
     this.ctx.drawImage(
       this.weapon, // image source
       this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
-      this.x, this.y, this.sizeX, this.sizeY // destination coordinates
+      this.x, this.y, this.sizeX * 4, this.sizeY * 4 // destination coordinates
     )
     // }
   }

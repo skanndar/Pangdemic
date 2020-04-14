@@ -13,6 +13,7 @@ class Game {
     this.bullets = []
     this.shoot = false
     this.virus = []
+    this.killedV = 0
   }
 
   start (lives) { // instantiate the player, set the canvas ,and start the canvas loop
@@ -159,7 +160,7 @@ class Game {
       }
       this.bullets.forEach(bullet => {
         if (bullet.didCollide(v)) {
-          console.log('virus must divide')
+          this.killedV++
           bullet.y = -111
           const newStrength = v.strength + 1
           this.virus[virusIndex] = undefined
@@ -199,7 +200,9 @@ class Game {
   }
 
   updateGameStats () {
-    this.score++
+    //Every second left on the game counts as 100pts + every live left counts 100pts + every virus killed counts 500pts 
+    // this.score = 
+    this.score = this.killedV * 500
     this.livesElement.innerHTML = this.player.lives
     this.scoreElement.innerHTML = this.score
   }

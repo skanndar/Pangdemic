@@ -2,18 +2,18 @@
 
 class Virus {
 // class Enemy {
-  constructor (canvas) {
+  constructor (canvas, size) {
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
 
-    this.size = 100
+    this.size = size
     this.y = 0
     this.x = this.canvas.width / 2 - this.size / 2
 
     this.bounce = 0.96
-    this.xSpeed = 12
-    this.ySpeed = 3
-    this.gravity = 3
+    this.xSpeed = 7
+    this.ySpeed = 1
+    this.gravity = 1
     this.img1 = new Image(); this.img1.src = '../img/img/Infected.png'
   }
 
@@ -49,5 +49,11 @@ class Virus {
     this.y = 500
     this.x = 200
     // this.draw()
+  }
+}
+
+class MediumVrius extends Virus{
+  constructor(canvas){
+    super(canvas)
   }
 }

@@ -3,14 +3,16 @@
 class Game {
   constructor () {
     this.player = null
-    this.viruses = []
+    this.virusSizes = [100, 50]
     this.gameIsOver = false
     this.score = 0
     this.gameScreen = null
     this.canvas = null
     this.ctx = null
     this.lives = 10
-    this.bullet = []
+    this.bullets = []
+    this.shoot = false
+    this.virus = []
   }
 
   start (lives) { // instantiate the player, set the canvas ,and start the canvas loop
@@ -32,7 +34,10 @@ class Game {
 
     // instantiate Player and Viruses
     this.player = new Player(this.canvas, lives)
-    this.virus = new Virus(this.canvas)
+    this.newVirus = new Virus(this.canvas, this.virusSizes[0])
+    if (this.virus.length < 1) {
+      this.virus.push(this.newVirus)
+    }
 
     // Event listener for moving the player
     function handleKeyDown (event) {
@@ -42,8 +47,7 @@ class Game {
         this.player.setDirection('right')
       } else if (event.key === ' ') {
         // console.log('object :', this.weapon.shoot)
-
-        this.bullet[0].shoot = true
+        this.shoot = true
       }
     }
     function handleKeyUp (event) {
@@ -51,9 +55,8 @@ class Game {
         this.player.setDirection('stop')
       } else if (event.key === 'ArrowRight') {
         this.player.setDirection('stop')
-      // } else if (event.key === ' ') {
-      //   console.log('object :', this.weapon.shoot)
-      //   this.weapon.shoot = false
+      } else if (event.key === ' ') {
+        // this.shoot = false
       }
     }
 
@@ -78,18 +81,24 @@ class Game {
       this.player.updatePosition()
 
       // const enemiesOnScreen = this.viruses.filter(function (virus) {
-      this.virus.updatePosition()
-      const newbullet = new Weapon(this.canvas, this.player)
-      if (this.bullet.length < 1) {
-        this.bullet.push(newbullet)
+      this.virus.forEach(v => v.updatePosition())
+
+      if (this.shoot) {
+        this.shoot = false
+
+        const newbullet = new Weapon(this.canvas, this.player)
+
+        if (this.bullets.length < 1) {
+          this.bullets.push(newbullet)
+        }
       }
 
-      const bulletsOnScreen = this.bullet.filter(function (bullet) {
+      const bulletsOnScreen = this.bullets.filter(function (bullet) {
         bullet.updatePosition()
         const isInsideScreen = bullet.isInsideScreen()
         return isInsideScreen // true or false
       })
-      this.bullet = bulletsOnScreen
+      this.bullets = bulletsOnScreen
 
       // const isInsideScreen = virus.isInsideScreen()
 
@@ -102,22 +111,13 @@ class Game {
 
       // 3. PAINT THE CANVAS
       // 3.1 Draw player
+      this.bullets.forEach(bullet => {
+        bullet.draw()
+      })
       this.player.draw()
 
       // 3.2 Draw all enemies
-      this.virus.draw()
-      this.bullet.forEach(bullet => {
-        bullet.draw()
-        bullet.handleScreenCollision()
-      })
-
-      // 3.3 Draw bullets
-      // if (this.weapon.isInsideScreen) {
-      //   this.bullet.forEach(bullet => bullet.draw())
-      // } else {
-      //   this.bullet.shoot = false
-      //   this.bullet.pop()
-      // }
+      this.virus.forEach(v => v.draw())
 
       // 4. TERMINATE LOOP IF GAME IS OVER
       if (this.gameIsOver === false) {
@@ -132,21 +132,28 @@ class Game {
   }
 
   checkCollisons () {
-    if (this.player.didCollide(this.virus)) {
-      console.log('Player lives', this.player.lives)
-      this.player.removeLife()
+    this.virus.forEach(v => {
+      if (this.player.didCollide(v)) {
+        console.log('Player lives', this.player.lives)
+        this.player.removeLife()
 
-      if (this.player.lives <= 0) {
-        this.gameOver()
-      } else {
-        // restart the game positions with the new live count
-        this.restartPositions()
+        if (this.player.lives <= 0) {
+          this.gameOver()
+        } else {
+          // restart the game positions with the new live count
+          this.restartPositions()
+        }
       }
-    }
-    this.bullet.forEach(bullet => {
-      if (bullet.didCollide(this.virus)) {
-        console.log('virus must divide')
-      }
+      this.bullets.forEach(bullet => {
+        if (bullet.didCollide(v)) {
+          console.log('virus must divide')
+          bullet.y = -111
+          this.virus.shift()
+         // this.virus.push(this.newVirus)
+          this.virus.push(this.newVirus)
+          
+        }
+      })
     })
   }
 
@@ -163,6 +170,11 @@ class Game {
 
   restartPositions () {
     this.player.startPosition()
-    this.virus.startPosition()
+
+    this.virus.forEach(v => v.startPosition()) // THIS MUST BE AMMENDED
+  }
+
+  divideVirus () {
+
   }
 }

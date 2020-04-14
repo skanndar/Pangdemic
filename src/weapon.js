@@ -2,6 +2,8 @@
 
 class Weapon {
   constructor (canvas, player) {
+    this.didCollideBound = Player.prototype.didCollide.bind(this)
+
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
 
@@ -19,8 +21,8 @@ class Weapon {
     this.columns = 9
     this.framesCounter = 0
 
-    this.x = player.x
-    this.y = canvas.height
+    this.x = (player.x + player.sizeX / 2) - this.sizeX / 2
+    this.y = canvas.height - player.sizeY / 2
 
     this.speed = -20
     this.shoot = false
@@ -40,36 +42,28 @@ class Weapon {
   }
 
   draw () {
-    if (this.shoot === true) {
-      this.shooting()
-      //   console.log(this.x, this.y, this.sizeX, this.sizeY)
-      //   // this.ctx.fillStyle = 'red'
-      // this.ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY)
+    // if (this.shoot === true) {
+    this.shooting()
+    //   console.log(this.x, this.y, this.sizeX, this.sizeY)
+    //   // this.ctx.fillStyle = 'red'
+    // this.ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY)
 
-      this.ctx.drawImage(
-        this.weapon, // image source
-        this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
-        this.x, this.y, this.sizeX, this.sizeY // destination coordinates
-      )
-    }
+    this.ctx.drawImage(
+      this.weapon, // image source
+      this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
+      this.x, this.y, this.sizeX, this.sizeY // destination coordinates
+    )
+    // }
   }
 
   updatePosition () {
     // update the bullet position
+    // if (this.shoot === true) {
     this.y = this.y + this.speed
 
     this.bulletTop = this.y
     this.bulletBottom = this.y + this.sizeY
-  }
-
-  handleScreenCollision () {
-    const { bulletTop, screenTop } = this
-
-    // If the bullet touched the ceiling
-
-    if (bulletTop <= screenTop) {
-      console.log('bulletTop :', bulletTop)
-    }
+    // }
   }
 
   didCollide (virus) { // How can I bind this function? It exists in player.js

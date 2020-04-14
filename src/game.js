@@ -3,7 +3,7 @@
 class Game {
   constructor () {
     this.player = null
-    this.virusSizes = [100, 50]
+    this.virusSizes = [120, 70, 45]
     this.gameIsOver = false
     this.score = 0
     this.gameScreen = null
@@ -81,7 +81,12 @@ class Game {
       this.player.updatePosition()
 
       // const enemiesOnScreen = this.viruses.filter(function (virus) {
-      this.virus.forEach(v => v.updatePosition())
+      this.virus.forEach(v => {
+        if (!v) {
+          return
+        }
+        v.updatePosition()
+      })
 
       if (this.shoot) {
         this.shoot = false
@@ -117,7 +122,12 @@ class Game {
       this.player.draw()
 
       // 3.2 Draw all enemies
-      this.virus.forEach(v => v.draw())
+      this.virus.forEach(v => {
+        if (!v) {
+          return
+        }
+        v.draw()
+      })
 
       // 4. TERMINATE LOOP IF GAME IS OVER
       if (this.gameIsOver === false) {
@@ -132,7 +142,10 @@ class Game {
   }
 
   checkCollisons () {
-    this.virus.forEach(v => {
+    this.virus.forEach((v, virusIndex) => {
+      if (!v) {
+        return
+      }
       if (this.player.didCollide(v)) {
         console.log('Player lives', this.player.lives)
         this.player.removeLife()
@@ -141,24 +154,43 @@ class Game {
           this.gameOver()
         } else {
           // restart the game positions with the new live count
-          this.restartPositions()
+          this.restartPositions(v)
         }
       }
       this.bullets.forEach(bullet => {
         if (bullet.didCollide(v)) {
           console.log('virus must divide')
           bullet.y = -111
-          this.virus.shift()
-          let virusLeft = new Virus(this.canvas, this.virusSizes[1], 'left')
-          let virusRight = new Virus(this.canvas, this.virusSizes[1], 'right')
+          const newStrength = v.strength + 1
+          this.virus[virusIndex] = undefined
+          console.log('this.gameWin() :', this.gameWin())
 
-         this.virus.push(virusLeft,virusRight)
-          //this.virus.push(this.newVirus)
-          //this.virus.push(this.newVirus)
-          
+          if (newStrength > 2) {
+            return
+          }
+          const virusLeft = new Virus(this.canvas, this.virusSizes[newStrength], 'left', newStrength)
+          const virusRight = new Virus(this.canvas, this.virusSizes[newStrength], 'right', newStrength)
+
+          this.virus.push(virusLeft, virusRight)
+          // this.virus.push(this.newVirus)
+          // this.virus.push(this.newVirus)
         }
       })
+      if (this.gameWin()) {
+        this.gameOver()
+      }
     })
+  }
+
+  gameWin () {
+    let gameWon = true
+
+    this.virus.forEach(function (virus) {
+      if (virus) {
+        gameWon = false
+      }
+    })
+    return gameWon
   }
 
   gameOver () {
@@ -172,10 +204,10 @@ class Game {
     this.scoreElement.innerHTML = this.score
   }
 
-  restartPositions () {
+  restartPositions (virus) {
     this.player.startPosition()
 
-    this.virus.forEach(v => v.startPosition()) // THIS MUST BE AMMENDED
+    virus.startPosition() // THIS MUST BE AMMENDED
   }
 
   divideVirus () {

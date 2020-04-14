@@ -82,8 +82,9 @@ class Weapon {
     const crossRight = virusRight >= bulletLeft && virusRight <= bulletRight
     const crossTop = virusTop <= bulletBottom && virusTop >= bulletTop
     const crossBottom = virusBottom >= bulletTop && virusBottom <= bulletBottom
+    const inside = (bulletLeft >= virusLeft && bulletLeft <= virusRight) && (bulletRight >= virusLeft && bulletRight <= virusRight)
 
-    if ((crossLeft || crossRight) && (crossTop || crossBottom)) {
+    if ((crossLeft || crossRight || inside) && (crossTop || crossBottom)) {
       return true
     } else {
       return false

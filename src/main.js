@@ -89,7 +89,7 @@ function startGame () {
   game.gameScreen = gameScreen
 
   // Start the game
-  game.start(10)
+  game.start(10000)
 }
 
 function endGame (score) {

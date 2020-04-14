@@ -2,13 +2,14 @@
 
 class Virus {
 // class Enemy {
-  constructor (canvas, size, direction) {
+  constructor (canvas, size, direction, strength = 0) {
     let xSpeed
     if (direction === 'left') {
       xSpeed = -6
     } else {
       xSpeed = 6
     }
+    this.strength = strength
 
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
@@ -25,7 +26,8 @@ class Virus {
   }
 
   draw () {
-    this.ctx.fillStyle = 'red'
+    //this.ctx.fillStyle = 'red'
+    //this.ctx.fillRect(this.x, this.y, this.size, this.size)
     this.ctx.drawImage(this.img1, this.x, this.y, this.size, this.size)
   }
 

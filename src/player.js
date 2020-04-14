@@ -65,6 +65,8 @@ class Player {
       this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
       this.x, this.y, this.sizeX, this.sizeY // destination coordinates
     )
+    // this.ctx.fillStyle = 'blue'
+    // this.ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY)
   }
 
   setDirection (direction) {
@@ -108,8 +110,9 @@ class Player {
     const crossRight = enemyRight >= playerLeft && enemyRight <= playerRight
     const crossTop = enemyTop <= playerBottom && enemyTop >= playerTop
     const crossBottom = enemyBottom >= playerTop && enemyBottom <= playerBottom
+    const inside = (playerLeft >= enemyLeft && playerLeft <= enemyRight) && (playerRight >= enemyLeft && playerRight <= enemyRight)
 
-    if ((crossLeft || crossRight) && (crossTop || crossBottom)) {
+    if ((crossLeft || crossRight || inside) && (crossTop || crossBottom)) {
       return true
     } else {
       return false

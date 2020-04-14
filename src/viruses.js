@@ -14,7 +14,7 @@ class Virus {
     this.xSpeed = 7
     this.ySpeed = 1
     this.gravity = 1
-    this.img1 = new Image(); this.img1.src = '../img/img/Infected.png'
+    this.img1 = new Image(); this.img1.src = 'img/img/Infected.png'
   }
 
   draw () {

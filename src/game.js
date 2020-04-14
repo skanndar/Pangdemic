@@ -149,8 +149,12 @@ class Game {
           console.log('virus must divide')
           bullet.y = -111
           this.virus.shift()
-         // this.virus.push(this.newVirus)
-          this.virus.push(this.newVirus)
+          let virusLeft = new Virus(this.canvas, this.virusSizes[1], 'left')
+          let virusRight = new Virus(this.canvas, this.virusSizes[1], 'right')
+
+         this.virus.push(virusLeft,virusRight)
+          //this.virus.push(this.newVirus)
+          //this.virus.push(this.newVirus)
           
         }
       })

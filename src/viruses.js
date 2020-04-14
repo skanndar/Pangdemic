@@ -2,7 +2,14 @@
 
 class Virus {
 // class Enemy {
-  constructor (canvas, size) {
+  constructor (canvas, size, direction) {
+    let xSpeed
+    if (direction === 'left') {
+      xSpeed = -6
+    } else {
+      xSpeed = 6
+    }
+
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
 
@@ -11,7 +18,7 @@ class Virus {
     this.x = this.canvas.width / 2 - this.size / 2
 
     this.bounce = 0.96
-    this.xSpeed = 7
+    this.xSpeed = xSpeed
     this.ySpeed = 1
     this.gravity = 1
     this.img1 = new Image(); this.img1.src = 'img/img/Infected.png'
@@ -52,8 +59,8 @@ class Virus {
   }
 }
 
-class MediumVrius extends Virus{
-  constructor(canvas){
+class MediumVrius extends Virus {
+  constructor (canvas) {
     super(canvas)
   }
 }

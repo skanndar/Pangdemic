@@ -21,7 +21,7 @@ class Player {
     this.x = this.canvas.width / 2 - this.sizeX / 2
     this.y = this.canvas.height - this.sizeY
     this.direction = 0 //  0 not moving  // -1 moving left   // 1 moving right
-    this.speed = 15
+    this.speed = 10
 
     this.playerLeft = this.x
     this.playerRight = this.x + this.sizeX

@@ -27,6 +27,8 @@ function createSplashScreen () {
 
     <nav>
     <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
+    <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
+
 
     </nav>
 
@@ -38,7 +40,6 @@ function createSplashScreen () {
       </section>
       <div class='button'>
         <button>Start Game</button>
-        <audio width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
       </div>
     </main>
  `)
@@ -56,6 +57,8 @@ function createGameScreen () {
   gameScreen = buildDom(`
     <main class="game container">
     <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
+    <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG - Barcelona.mp3">If stream does not start automatically press the play button</audio >
+
 
     <div class="canvas-container">
       <canvas></canvas>
@@ -68,7 +71,6 @@ function createGameScreen () {
       <div class="score">
         <span class="label">Score:</span>
         <span class="value"></span>
-        <audio width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG - Barcelona.mp3">If stream does not start automatically press the play button</audio >
 
       </div>
     </footer>
@@ -87,7 +89,9 @@ function removeScreen () {
 function createGameOverScreen (score) {
   gameOverScreen = buildDom(`
   <main class='end-game'>
-  <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
+  <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
+  <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Angkor wat.mp3">If stream does not start automatically press the play button</audio >
+  </nav>
 
     <h1 class='game-over'>Game over</h1>
     <p class='score'>Your score: <span> ${score} </span></p>

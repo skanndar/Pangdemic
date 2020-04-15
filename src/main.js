@@ -22,6 +22,11 @@ function createSplashScreen () {
   splashScreen = buildDom(`
     <main id='startscreen'>
       <h1 class='startscreen'>PANGDEMIC</h1>
+      <section>      
+      <h2>Controls:</h2>
+      <p>Move: Push <b>Left</b> and <b>Right</b> arrows <--  --> </p>
+      <p>Shoot: Push <b>Spacebar ⎵⎵⎵⎵ </b></p>
+      </section>
       <div class='button'>
         <button>Start Game</button>
       </div>

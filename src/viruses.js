@@ -18,7 +18,7 @@ class Virus {
     this.y = 100
     this.x = this.canvas.width / 2 - this.size / 2
 
-    this.bounce = 0.96
+    this.bounce = 0.97
     this.xSpeed = xSpeed
     this.ySpeed = 0.1
     this.gravity = 0.1

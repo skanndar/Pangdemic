@@ -146,16 +146,24 @@ body {
   align-items: flex-start;
   padding: 200px 330px;
   font-size: 5em;
-  background-color: rgba(1, 255, 255, 0.4);
   color: white;
 }
 
-#startscreen button {
+button {
+  background-color: rgba(175, 76, 158, 0.89);
+  border: 2px solid black;
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   margin: 0 auto;
   font-size: x-large;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 /* ---- layout ---- */
@@ -163,6 +171,8 @@ body {
 html,
 body {
   height: 100%;
+  text-shadow: 2px 0 rgb(4, 29, 255);
+  color: white;
 }
 footer {
   height: 100px;
@@ -187,27 +197,54 @@ footer {
   height: 100%;
   width: 100%;
 }
-div.button {
-  text-align: center;
+main {
+  height: 100%;
+  background-color: rgba(1, 255, 255, 0.4);
+}
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(36, 35, 35, 0.52);
+  padding: 30px;
+}
+h2 {
+  font-size: 30px;
+  margin: 20px;
+}
+p {
+  padding: 20px;
+  background-color: rgba(36, 35, 35, 0.52);
 }
 
 .score {
   display: flex;
-  
-  margin: 0 auto;
 
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 30px;
 }
-.end-game{
+.lives {
+  display: flex;
+
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 30px;
+}
+.end-game {
   display: flex;
   flex-direction: column;
-
+  background-color: rgba(255, 235, 205, 0.548);
 }
-.end-game button{
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+.game-over {
   margin: 0 auto;
+  font-size: 72px;
+  padding: 100px;
 }
+
+
 /*
 
 .container {

@@ -24,7 +24,7 @@ function createSplashScreen () {
     
 
     <main id='startscreen'>
-    <nav><a href="../index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
+    <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
 
       <h1 class='startscreen'>PANGDEMIC</h1>
       <section>      
@@ -50,7 +50,7 @@ function createSplashScreen () {
 function createGameScreen () {
   gameScreen = buildDom(`
     <main class="game container">
-    <nav><a href="../index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
+    <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
 
     <div class="canvas-container">
       <canvas></canvas>
@@ -80,7 +80,7 @@ function removeScreen () {
 function createGameOverScreen (score) {
   gameOverScreen = buildDom(`
   <main class='end-game'>
-  <nav><a href="../index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
+  <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
 
     <h1 class='game-over'>Game over</h1>
     <p class='score'>Your score: <span> ${score} </span></p>

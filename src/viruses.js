@@ -23,7 +23,7 @@ class Virus {
     this.xSpeed = xSpeed
     this.ySpeed = 0.1
     this.gravity = 0.1
-    this.img1 = new Image(); this.img1.src = 'img/img/Infected.png'
+    this.img1 = new Image(); this.img1.src = 'img/img/Yellow_Virus.png'
   }
 
   draw () {
@@ -40,7 +40,7 @@ class Virus {
     this.ySpeed += this.gravity
 
     // If either wall is hit, change direction on x axis
-    if (this.x + this.size > this.canvas.width || this.x - this.size < 0) {
+    if (this.x + this.size > this.canvas.width || this.x < 0) {
       this.xSpeed *= -1
     }
     // Ball hits the top or bottom

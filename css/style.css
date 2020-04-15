@@ -126,12 +126,12 @@ table {
 /* style starts here */
 /* ---- typography ----  background ----*/
 body {
-  background: url("../img/09-03-2020-coronavirus.jpg") no-repeat center center
-    fixed;
   font-family: "Press Start 2P", cursive;
 
   font-size: 16px;
   line-height: 147%;
+  background: url('../img/img/night.jpg') no-repeat center center fixed;
+
 }
 
 nav img{
@@ -154,7 +154,7 @@ nav{
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 150px 130px;
+  padding: 120px 120px;
   font-size: 5em;
   color: white;
   
@@ -182,6 +182,12 @@ button:hover{
   background-color: #4CAF50;
   color: white;
 }
+audio {
+  width: 150px;
+  height: 30px;
+}
+
+
 
 
 /* ---- layout ---- */
@@ -204,9 +210,10 @@ footer {
   }
 }
 .game .canvas-container {
-  background: url("../img/image1440x560cropped.jpg") no-repeat center center
+  background: url("../img/img/night.jpg") center center
     fixed;
   flex: 1;
+  
 }
 .game {
   text-align: center;
@@ -216,8 +223,11 @@ footer {
   width: 100%;
 }
 main {
-  height: 100%;
   background-color: rgba(1, 255, 255, 0.4);
+  
+
+  height: 100%;
+  width: 100%;
 }
 section {
   display: flex;
@@ -226,7 +236,7 @@ section {
   align-items: center;
   color: white;
   background-color: rgba(36, 35, 35, 0.52);
-  padding: 30px;
+  padding: 20px;
   box-shadow: 20px 18px 12px -2px rgba(0,0,0,0.56);
 
 }

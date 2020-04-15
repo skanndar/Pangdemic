@@ -6,6 +6,7 @@ let game
 let splashScreen // start game screen element
 let gameScreen
 let gameOverScreen // game over screen element
+let rank
 
 // used to create HTML elements
 function buildDom (htmlString) {
@@ -20,35 +21,36 @@ buildDom()
 // splash screen
 function createSplashScreen () {
   splashScreen = buildDom(`
-    
-    
-
-    <main id='startscreen'>
-
-    <nav>
-    <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
-    <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
+     <main id='startscreen'>
+     <nav>
+        <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
+        <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
 
 
-    </nav>
+     </nav>
 
       <h1 class='startscreen'>PANGDEMIC</h1>
       <section>      
       <h2>Controls:</h2>
-      <p>Move: Push <b>Left</b> and <b>Right</b> arrows <--  --> </p>
-      <p>Shoot: Push <b>Spacebar ⎵⎵⎵⎵ </b></p>
+      <p>Move: Push <b>Left</b> and <b>Right</b> arrows &#9664  --  &#9654 </p>
+      <p>Shoot: Push <b>Spacebar &#9644&#9644&#9644&#9644 </b></p>
       </section>
       <div class='button'>
-        <button>Start Game</button>
+        <button id='start'>Start Game</button>
+        <button id='ranking'>Ranking</button>
       </div>
     </main>
  `)
 
   document.body.appendChild(splashScreen)
 
-  const startButton = splashScreen.querySelector('button')
+  const startButton = splashScreen.querySelector('#start')
   startButton.addEventListener('click', function () {
     startGame()
+  })
+  const rankingButton = splashScreen.querySelector('#ranking')
+  rankingButton.addEventListener('click', function () {
+    ranking()
   })
 }
 
@@ -71,8 +73,10 @@ function createGameScreen () {
       <div class="score">
         <span class="label">Score:</span>
         <span class="value"></span>
-
+        
       </div>
+      <div class="time"></div>
+
     </footer>
     
   </main>
@@ -99,10 +103,42 @@ function createGameOverScreen (score) {
   </main>
   `)
 
-  var restartButton = gameOverScreen.querySelector('button')
+  const restartButton = gameOverScreen.querySelector('button')
   restartButton.addEventListener('click', startGame)
 
   document.body.appendChild(gameOverScreen)
+}
+
+function rankingScreen (name, score) {
+  rank = buildDom(`
+  <main class='ranking'>
+
+  <nav>
+  <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
+  <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Angkor wat.mp3">If stream does not start automatically press the play button</audio >
+  
+  </nav>
+
+    <h1 class='ranking'>Ranking</h1>
+    <ol class='rank-list'>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+      <li>${name}${score}</li>
+    </ol>
+    <button>Restart</button>
+  </main>
+  `)
+
+  const restartButton = rank.querySelector('button')
+  restartButton.addEventListener('click', startGame)
+
+  document.body.appendChild(rank)
 }
 
 // start the game , end the game
@@ -114,12 +150,17 @@ function startGame () {
   game.gameScreen = gameScreen
 
   // Start the game
-  game.start(1)
+  game.start(5)
 }
 
 function endGame (score) {
   removeScreen()
   createGameOverScreen(score)
+}
+
+function ranking () {
+  removeScreen()
+  rankingScreen()
 }
 
 // Run the function   `createSplashScreen` once all the resources are loaded

@@ -2,7 +2,7 @@
 
 class Virus {
 // class Enemy {
-  constructor (canvas, size, direction, strength = 0) {
+  constructor (canvas, size, direction, strength = 0,initialX) {
     let xSpeed
     if (direction === 'left') {
       xSpeed = -4
@@ -16,7 +16,8 @@ class Virus {
 
     this.size = size
     this.y = 100
-    this.x = this.canvas.width / 2 - this.size / 2
+    this.x = initialX
+    
 
     this.bounce = 0.97
     this.xSpeed = xSpeed

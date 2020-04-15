@@ -12,8 +12,8 @@ class Weapon {
     this.totalSpriteHeight = 22
     this.spriteHeight = Number((this.totalSpriteHeight / 1).toFixed(2))
     this.spriteWidth = Number((this.totalSpriteWidth / 4).toFixed(2))
-    this.sizeY = this.spriteHeight / 2
-    this.sizeX = this.spriteWidth / 2
+    this.sizeY = (this.spriteHeight / 1) *2
+    this.sizeX = (this.spriteWidth / 1) *2
     this.sourceWidth = 0
     this.sourceHeight = 0
     this.currentFrame = 0
@@ -47,15 +47,13 @@ class Weapon {
       this.shooting()
     }
     //   console.log(this.x, this.y, this.sizeX, this.sizeY)
-    //   // this.ctx.fillStyle = 'red'
+    // this.ctx.fillStyle = 'blue'
     // this.ctx.fillRect(this.x, this.y, this.sizeX, this.sizeY)
-
     this.ctx.drawImage(
       this.weapon, // image source
       this.sourceWidth, this.sourceHeight, this.spriteWidth, this.spriteHeight, // source coordinates
-      this.x, this.y, this.sizeX * 4, this.sizeY * 4 // destination coordinates
+      this.x, this.y, this.sizeX, this.sizeY // destination coordinates
     )
-    // }
   }
 
   updatePosition () {
@@ -79,6 +77,9 @@ class Weapon {
     const virusRight = virus.x + virus.size
     const virusTop = virus.y
     const virusBottom = virus.y + virus.size
+    // if (bulletTop <= virusBottom + 10) {
+    //   debugger
+    // }
 
     const crossLeft = virusLeft <= bulletRight && virusLeft >= bulletLeft
     const crossRight = virusRight >= bulletLeft && virusRight <= bulletRight

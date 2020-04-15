@@ -3,7 +3,7 @@
 class Game {
   constructor () {
     this.player = null
-    this.virusSizes = [120, 70, 45]
+    this.virusSizes = [120,75,45]
     this.gameIsOver = false
     this.score = 0
     this.gameScreen = null
@@ -21,21 +21,23 @@ class Game {
     const canvasContainer = document.querySelector('.canvas-container')
     this.canvas = this.gameScreen.querySelector('canvas')
     this.ctx = this.canvas.getContext('2d')
-
+    
     // Save the reference to lives and score elements
     this.livesElement = this.gameScreen.querySelector('.lives .value')
     this.scoreElement = this.gameScreen.querySelector('.score .value')
-
+    
     // Set the canvas dimenisons
     this.containerWidth = canvasContainer.clientWidth
     this.containerHeight = canvasContainer.clientHeight
-
+    
     this.canvas.width = this.containerWidth
     this.canvas.height = this.containerHeight
-
+    
+    const canvasMid = this.canvas.width / 2 - this.virusSizes[0] / 2
+    
     // instantiate Player and Viruses
     this.player = new Player(this.canvas, lives)
-    this.newVirus = new Virus(this.canvas, this.virusSizes[0])
+    this.newVirus = new Virus(this.canvas, this.virusSizes[0],undefined,undefined,canvasMid)
     if (this.virus.length < 1) {
       this.virus.push(this.newVirus)
     }
@@ -163,14 +165,15 @@ class Game {
           this.killedV++
           bullet.y = -111
           const newStrength = v.strength + 1
+          const virusX = v.x
           this.virus[virusIndex] = undefined
           console.log('this.gameWin() :', this.gameWin())
 
           if (newStrength > 2) {
             return
           }
-          const virusLeft = new Virus(this.canvas, this.virusSizes[newStrength], 'left', newStrength)
-          const virusRight = new Virus(this.canvas, this.virusSizes[newStrength], 'right', newStrength)
+          const virusLeft = new Virus(this.canvas, this.virusSizes[newStrength], 'left', newStrength, virusX)
+          const virusRight = new Virus(this.canvas, this.virusSizes[newStrength], 'right', newStrength, virusX)
 
           this.virus.push(virusLeft, virusRight)
           // this.virus.push(this.newVirus)

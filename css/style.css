@@ -134,6 +134,14 @@ body {
   line-height: 147%;
 }
 
+nav img{
+  height:90%;
+  padding: 10px 30px;
+}
+nav{
+  height: 10%;
+}
+
 #startscreen {
   display: flex;
   flex-direction: column;
@@ -144,7 +152,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 200px 330px;
+  padding: 150px 130px;
   font-size: 5em;
   color: white;
 }

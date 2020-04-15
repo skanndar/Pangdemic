@@ -126,9 +126,10 @@ table {
 /* style starts here */
 /* ---- typography ----  background ----*/
 body {
-  background: url('../img/09-03-2020-coronavirus.jpg') no-repeat center center
+  background: url("../img/09-03-2020-coronavirus.jpg") no-repeat center center
     fixed;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Press Start 2P", cursive;
+
   font-size: 16px;
   line-height: 147%;
 }
@@ -153,7 +154,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin: 100px;
+  margin: 0 auto;
+  font-size: x-large;
 }
 
 /* ---- layout ---- */
@@ -164,13 +166,9 @@ body {
 }
 footer {
   height: 100px;
-  background-color: rgba(255, 255, 255,0.4);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
-.container {
-  margin: 0 20px;
-  /* background-image: url(https://wallpaperaccess.com/full/17493.jpg); */
-}
 @media (min-width: 768px) {
   .container {
     max-width: 98%; /* Resizes the container to 728px for large screens */
@@ -178,6 +176,8 @@ footer {
   }
 }
 .game .canvas-container {
+  background: url("../img/image1440x560cropped.jpg") no-repeat center center
+    fixed;
   flex: 1;
 }
 .game {
@@ -191,40 +191,27 @@ div.button {
   text-align: center;
 }
 
-/* ---- 
-  @media (min-width: 768px) {
-    .container {
-      max-width: 728px; /* Resizes the container to 728px for large screens 
-      margin: 0 auto;
-    }
-  }
+.score {
+  display: flex;
   
-  /* ---- components 
-  
- 
-  
-  .game header {
-    height: 50px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .game .lives {
-    flex: 1;
-  }
-  
-  .game .score {
-    flex: 1;
-  }
-  
-  .game .label {
-    font-weight: bold;
-  }
-  
-  .game .value {
-    font-style: italic;
-  }
-  
-  .game .canvas-container {
-    flex: 1;
-  } ---- */
+  margin: 0 auto;
+
+}
+.end-game{
+  display: flex;
+  flex-direction: column;
+
+}
+.end-game button{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto;
+}
+/*
+
+.container {
+  margin: 0 20px;
+  /* background-image: url(https://wallpaperaccess.com/full/17493.jpg); 
+}
+*/

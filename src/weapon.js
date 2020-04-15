@@ -24,7 +24,7 @@ class Weapon {
     this.x = (player.x + player.sizeX / 2) - this.sizeX / 2
     this.y = canvas.height - player.sizeY / 2
 
-    this.speed = -11
+    this.speed = -15
     this.shoot = false
 
     this.bulletTop = this.y
@@ -43,7 +43,7 @@ class Weapon {
 
   draw () {
     this.framesCounter++
-    if (this.framesCounter % 2 === 0) {
+    if (this.framesCounter % 4 === 0) {
       this.shooting()
     }
     //   console.log(this.x, this.y, this.sizeX, this.sizeY)

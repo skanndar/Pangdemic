@@ -196,13 +196,13 @@ class Game {
 
   gameOver () {
     this.gameIsOver = true
-    endGame(this.score)
+    endGame(this.score) // add time left for points
   }
 
   updateGameStats () {
-    //Every second left on the game counts as 100pts + every live left counts 100pts + every virus killed counts 500pts 
-    // this.score = 
-    this.score = this.killedV * 500
+    // Every second left on the game counts as 100pts + every live left counts 100pts + every virus killed counts 500pts
+    // this.score =
+    this.score = (this.killedV * 500)
     this.livesElement.innerHTML = this.player.lives
     this.scoreElement.innerHTML = this.score
   }
@@ -211,9 +211,5 @@ class Game {
     this.player.startPosition()
 
     virus.startPosition() // THIS MUST BE AMMENDED
-  }
-
-  divideVirus () {
-
   }
 }

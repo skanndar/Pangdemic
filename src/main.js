@@ -67,9 +67,9 @@ function removeScreen () {
 // game over screen
 function createGameOverScreen (score) {
   gameOverScreen = buildDom(`
-  <main>
-    <h1>Game over</h1>
-    <p>Your score: <span> ${score} </span></p>
+  <main class='end-game'>
+    <h1 class='game-over'>Game over</h1>
+    <p class='score'>Your score: <span> ${score} </span></p>
     <button>Restart</button>
   </main>
   `)
@@ -89,7 +89,7 @@ function startGame () {
   game.gameScreen = gameScreen
 
   // Start the game
-  game.start(10000)
+  game.start(1)
 }
 
 function endGame (score) {

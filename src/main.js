@@ -24,7 +24,11 @@ function createSplashScreen () {
     
 
     <main id='startscreen'>
-    <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
+
+    <nav>
+    <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
+
+    </nav>
 
       <h1 class='startscreen'>PANGDEMIC</h1>
       <section>      
@@ -34,6 +38,7 @@ function createSplashScreen () {
       </section>
       <div class='button'>
         <button>Start Game</button>
+        <audio width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
       </div>
     </main>
  `)
@@ -63,6 +68,8 @@ function createGameScreen () {
       <div class="score">
         <span class="label">Score:</span>
         <span class="value"></span>
+        <audio width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG - Barcelona.mp3">If stream does not start automatically press the play button</audio >
+
       </div>
     </footer>
     

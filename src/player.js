@@ -29,6 +29,7 @@ class Player {
     this.screenLeft = 0 //  y = 0
     this.screenRigth = this.canvas.width
     this.character = new Image(); this.character.src = 'img/img/Sally.png' // 128 x 256 (4x4)
+    this.wallbounce = new Audio('audio/57543__dolfeus__scroute.wav')
   }
 
   moveLeft () {
@@ -80,8 +81,16 @@ class Player {
 
     if (playerRight >= screenRigth) {
       this.setDirection('left')
+      this.wallbounce.currentTime = 0
+      this.wallbounce.volume = 0.2
+      this.wallbounce.play()
+    
     } else if (playerLeft <= screenLeft) {
       this.setDirection('right')
+      this.wallbounce.currentTime = 0
+      this.wallbounce.volume = 0.2
+      this.wallbounce.play()
+    
     }
   }
 

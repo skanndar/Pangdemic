@@ -18,6 +18,9 @@ class Game {
     this.timeoutId = null
     this.name = name
     this.shootSound = new Audio('audio/Sonido disparo.mp3')
+    this.infection = new Audio('audio/219195__airborne80__infection.mp3')
+    this.lastlife = new Audio('audio/183940__bigfriendlyjiant__news-h5n1-02.flac')
+    this.smashed = new Audio('audio/266535__gcastanera__smashed-bug.wav')
   }
 
   timer () {
@@ -161,13 +164,24 @@ class Game {
         return
       }
       if (this.player.didCollide(v)) {
+        this.infection.currentTime = 0
+        this.infection.volume = 0.2
+        this.infection.play()
+        this.smashed.currentTime = 0
+        this.smashed.volume = 0.2
+        this.smashed.play()
         console.log('Player lives', this.player.lives)
         this.player.removeLife()
 
         if (this.player.lives <= 0) {
           this.gameOver()
-        } else {
+        } else if (this.player.lives === 2) {
           // restart the game positions with the new live count
+          this.restartPositions(v)
+          this.lastlife.currentTime = 0
+          this.lastlife.volume = 0.2
+          this.lastlife.play()
+        } else{
           this.restartPositions(v)
         }
       }
@@ -194,7 +208,7 @@ class Game {
       if (this.gameWin()) {
         clearInterval(this.timeoutId)
         this.gameIsOver = true
-        rankingScreen(this.name, this.score + this.time * 161 + this.player.lives * 89)
+        rankingScreen(this.name, this.score + this.time * 161 + this.player.lives * 919)
       }
     })
   }
@@ -213,16 +227,16 @@ class Game {
   gameOver () {
     clearInterval(this.timeoutId)
     this.gameIsOver = true
-    endGame(this.name, this.score + this.time * 161 + this.player.lives * 89, this.time) 
-    console.log('this.player.lives :', this.player.lives);
-    
+    endGame(this.name, this.score + this.time * 161 + this.player.lives * 89, this.time)
+    console.log('this.player.lives :', this.player.lives)
+
     // add time left for points
   }
 
   updateGameStats () {
     // Every second left on the game counts as 100pts + every live left counts 100pts + every virus killed counts 500pts
     // this.score =
-    this.score = (this.killedV * 500)
+    this.score = (this.killedV * 666)
     this.livesElement.innerHTML = this.player.lives
     this.scoreElement.innerHTML = this.score
     this.timerElement.innerHTML = this.time

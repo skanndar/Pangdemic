@@ -194,7 +194,7 @@ class Game {
       if (this.gameWin()) {
         clearInterval(this.timeoutId)
         this.gameIsOver = true
-        rankingScreen(this.name, this.score)
+        rankingScreen(this.name, this.score + this.time * 161)
       }
     })
   }
@@ -213,7 +213,7 @@ class Game {
   gameOver () {
     clearInterval(this.timeoutId)
     this.gameIsOver = true
-    endGame(this.name, this.score, this.time) // add time left for points
+    endGame(this.name, this.score + this.time * 161, this.time) // add time left for points
   }
 
   updateGameStats () {

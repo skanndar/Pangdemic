@@ -7,6 +7,8 @@ let splashScreen // start game screen element
 let gameScreen
 let gameOverScreen // game over screen element
 let rank
+let scoreArray
+let name = ''
 
 // used to create HTML elements
 function buildDom (htmlString) {
@@ -34,15 +36,22 @@ function createSplashScreen () {
   </nav>
 
   <h1 class='startscreen'>PANGDEMIC</h1>
+  
+  <div id="register-name">
+    <form>
+      <label>Your name:</label>
+      <input id="username" type="text" placeholder="My name" value="" />
+    </form>
+  </div>
+  <div class='button'>
+    <button id='start'>Start Game</button>
+    <button id='ranking'>Ranking</button>
+  </div>
   <section>      
   <h2>Controls:</h2>
   <p>Move: Push <b>Left</b> and <b>Right</b> arrows &#9664  --  &#9654 </p>
   <p>Shoot: Push <b>Spacebar &#9644&#9644&#9644&#9644 </b></p>
   </section>
-  <div class='button'>
-    <button id='start'>Start Game</button>
-    <button id='ranking'>Ranking</button>
-  </div>
 </main> 
  `)
 
@@ -53,11 +62,15 @@ function createSplashScreen () {
 
   const startButton = splashScreen.querySelector('#start')
   startButton.addEventListener('click', function () {
-    startGame()
+    name = splashScreen.querySelector('#username').value
+    if (name === '') {
+      name = 'ANONYMOUS'
+    }
+    startGame(name)
   })
   const rankingButton = splashScreen.querySelector('#ranking')
   rankingButton.addEventListener('click', function () {
-    ranking()
+    rankingScreen()
   })
 }
 
@@ -138,7 +151,9 @@ function createGameOverScreen (score, time) {
 
 function rankingScreen (name, score) {
   removeScreen()
-  safeNameScore(name, score)
+  if (name && score) {
+    safeNameScore(name, score)
+  }
   rank = buildDom(`
   <main class="ranking">
   <nav>
@@ -153,36 +168,130 @@ function rankingScreen (name, score) {
   </nav>
 
   <h1 class="ranking">Ranking</h1>
-  <ol class="rank-list">
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-    <li>${name}  ${score}</li>
-  </ol>
+  <div id="scores">
+  <p>Your score: <span></span></p>
+  <table id="scoretable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="name1"></td>
+        <td id="score1"></td>
+      </tr>
+      <tr>
+        <td id="name2"></td>
+        <td id="score2"></td>
+      </tr>
+      <tr>
+        <td id="name3"></td>
+        <td id="score3"></td>
+      </tr>
+      <tr>
+        <td id="name4"></td>
+        <td id="score4"></td>
+      </tr>
+      <tr>
+        <td id="name5"></td>
+        <td id="score5"></td>
+      </tr>
+      <tr>
+        <td id="name6"></td>
+        <td id="score6"></td>
+      </tr>
+      <tr>
+        <td id="name7"></td>
+        <td id="score7"></td>
+      </tr>
+      <tr>
+        <td id="name8"></td>
+        <td id="score8"></td>
+      </tr>
+      <tr>
+        <td id="name9"></td>
+        <td id="score9"></td>
+      </tr>
+      <tr>
+        <td id="name10"></td>
+        <td id="score10"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
   <button>Restart</button>
 </main>
   `)
 
+  // convert it back into an array in order to get data from local storage
+  const scoreBoard = JSON.parse(localStorage.getItem('scoreArray'))
+  scoreBoard.sort(function (a, b) {
+    return b.score - a.score
+  })
+  console.log('SCOREBOARD', scoreBoard)
+
+  // print the best 5 scores into a table
+  for (let i = 0; i < 10; i++) {
+    const playersName = rank.querySelector('#name' + (i + 1))
+    const playerScore = rank.querySelector('#score' + (i + 1))
+    if (scoreBoard[i]) {
+      playersName.innerHTML = scoreBoard[i].name
+      playerScore.innerHTML = scoreBoard[i].score + ' points'
+    } else {
+      playersName.innerHTML = ''
+      playerScore.innerHTML = ''
+    }
+  }
+
+  // print the score to the screen
+  if (score) {
+    const span = rank.querySelector('span')
+    span.innerText = score + ' points'
+  } else {
+    const span = rank.querySelector('span')
+    span.innerText = 'Play to set a RECORD'
+  }
+
+  // append the rank to the DOM
   document.body.appendChild(rank)
+
+  // document.body.appendChild(rank)
 
   const audioVol = rank.querySelector('audio')
   audioVol.volume = 0.05
 
   const restartButton = rank.querySelector('button')
-  restartButton.addEventListener('click', startGame)
+  restartButton.addEventListener('click', function () {
+    name = 'ANONYMOUS'
+    startGame(name)
+  })
 }
 
+function safeNameScore (name, score) {
+  if (localStorage.getItem('scoreArray') === null) {
+    scoreArray = []
+  } else {
+    scoreArray = JSON.parse(localStorage.getItem('scoreArray'))
+  }
+  console.log('name :', name)
+  // store player's name and score into an object that is pushed into the scoreArray
+  const newPlayer = {
+    name: name.toUpperCase(),
+    score: score
+  }
+  scoreArray.push(newPlayer)
+
+  // stringify the array in order to add it to local storage
+  localStorage.setItem('scoreArray', JSON.stringify(scoreArray))
+}
 // start the game , end the game
-function startGame () {
+function startGame (name) {
   removeScreen()
   createGameScreen()
 
-  game = new Game()
+  game = new Game(name)
   game.gameScreen = gameScreen
 
   // Start the game
@@ -193,10 +302,6 @@ function endGame (name, score, time) {
   removeScreen()
   createGameOverScreen(score, time)
   safeNameScore(name, score)
-}
-
-function safeNameScore (name, score) {
-
 }
 
 // Run the function   `createSplashScreen` once all the resources are loaded

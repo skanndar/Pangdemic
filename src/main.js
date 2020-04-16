@@ -146,7 +146,11 @@ function createGameOverScreen (score, time) {
   const audioVol = gameOverScreen.querySelector('audio')
   audioVol.volume = 0.1
   const restartButton = gameOverScreen.querySelector('button')
-  restartButton.addEventListener('click', startGame)
+  restartButton.addEventListener('click', function () {
+    name = 'ANONYMOUS'
+    startGame(name)
+  }
+  )
 }
 
 function rankingScreen (name, score) {
@@ -295,7 +299,7 @@ function startGame (name) {
   game.gameScreen = gameScreen
 
   // Start the game
-  game.start(5)
+  game.start(3)
 }
 
 function endGame (name, score, time) {

@@ -199,6 +199,9 @@ body {
   color: white;
 }
 footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   height: 100px;
   background-color: rgba(255, 255, 255, 0.4);
 }
@@ -210,8 +213,7 @@ footer {
   }
 }
 .game .canvas-container {
-  background: url("../img/img/night.jpg") center center
-    fixed;
+  background: url("../img/img/night.jpg") bottom center fixed;
   flex: 1;
   
 }

@@ -24,7 +24,7 @@ function createSplashScreen () {
      <main id='startscreen'>
      <nav>
         <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
-        <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
+        <audio controls='true' width="150px" height="25" allow=”autoplay”  src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
 
 
      </nav>
@@ -57,29 +57,36 @@ function createSplashScreen () {
 // game screen
 function createGameScreen () {
   gameScreen = buildDom(`
-    <main class="game container">
-    <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a></nav>
-    <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG - Barcelona.mp3">If stream does not start automatically press the play button</audio >
+  <main class="game container">
+  <nav>
+    <a href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
+  </nav>
+  <audio
+    controls="true"
+    width="150px"
+    height="25"
+    src="audio/PANG - Barcelona.mp3"
+  >
+    If stream does not start automatically press the play button
+  </audio>
 
-
-    <div class="canvas-container">
-      <canvas></canvas>
+  <div class="canvas-container">
+    <canvas></canvas>
+  </div>
+  <footer>
+    <div class="time"></div>
+    <div class="lives-score">
+    <div class="lives">
+      <span class="label">Lives:</span>
+      <span class="value"></span>
     </div>
-    <footer>
-      <div class="lives">
-        <span class="label">Lives:</span>
-        <span class="value"></span>
-      </div>
-      <div class="score">
-        <span class="label">Score:</span>
-        <span class="value"></span>
-        
-      </div>
-      <div class="time"></div>
-
-    </footer>
-    
-  </main>
+    <div class="score">
+      <span class="label">Score:</span>
+      <span class="value"></span>
+    </div>
+    </div>
+  </footer>
+</main>
   `)
 
   document.body.appendChild(gameScreen)
@@ -110,12 +117,13 @@ function createGameOverScreen (score) {
 }
 
 function rankingScreen (name, score) {
+  removeScreen()
   rank = buildDom(`
   <main class='ranking'>
 
   <nav>
   <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
-  <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Angkor wat.mp3">If stream does not start automatically press the play button</audio >
+  <audio controls='true' width="150px" height="25" allow=”autoplay”  src="audio/PANG Angkor wat.mp3">If stream does not start automatically press the play button</audio >
   
   </nav>
 
@@ -150,7 +158,7 @@ function startGame () {
   game.gameScreen = gameScreen
 
   // Start the game
-  game.start(5)
+  game.start(1)
 }
 
 function endGame (score) {
@@ -165,3 +173,5 @@ function ranking () {
 
 // Run the function   `createSplashScreen` once all the resources are loaded
 window.addEventListener('load', createSplashScreen)
+
+//autoplay="autoplay"

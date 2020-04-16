@@ -9,11 +9,18 @@ class Game {
     this.gameScreen = null
     this.canvas = null
     this.ctx = null
-    this.lives = 10
+    // this.lives = 10
     this.bullets = []
     this.shoot = false
     this.virus = []
     this.killedV = 0
+    this.time = 90 // seconds
+    this.timeoutId = null
+  }
+
+  timer () {
+    this.timeoutId = setInterval(() => { this.time-- }, 1000)
+    console.log('time :', this.time)
   }
 
   start (lives) { // instantiate the player, set the canvas ,and start the canvas loop
@@ -25,6 +32,7 @@ class Game {
     // Save the reference to lives and score elements
     this.livesElement = this.gameScreen.querySelector('.lives .value')
     this.scoreElement = this.gameScreen.querySelector('.score .value')
+    this.timerElement = this.gameScreen.querySelector('.time')
 
     // Set the canvas dimenisons
     this.containerWidth = canvasContainer.clientWidth
@@ -70,6 +78,7 @@ class Game {
     document.addEventListener('keyup', boundHandleKeyUp)
 
     // Start the canvas requestAnimationFrame loop
+    this.timer()
     this.startLoop()
   }
 
@@ -181,7 +190,9 @@ class Game {
         }
       })
       if (this.gameWin()) {
-        this.gameOver()
+        clearInterval(this.timeoutId)
+        this.gameIsOver=true
+        rankingScreen()
       }
     })
   }
@@ -198,6 +209,7 @@ class Game {
   }
 
   gameOver () {
+    clearInterval(this.timeoutId)
     this.gameIsOver = true
     endGame(this.score) // add time left for points
   }
@@ -208,6 +220,7 @@ class Game {
     this.score = (this.killedV * 500)
     this.livesElement.innerHTML = this.player.lives
     this.scoreElement.innerHTML = this.score
+    this.timerElement.innerHTML = this.time
   }
 
   restartPositions (virus) {

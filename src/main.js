@@ -21,28 +21,35 @@ buildDom()
 // splash screen
 function createSplashScreen () {
   splashScreen = buildDom(`
-     <main id='startscreen'>
-     <nav>
-        <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
-        <audio controls='true' width="150px" height="25" allow=”autoplay”  src="audio/PANG Mt Fuji.mp3">If stream does not start automatically press the play button</audio >
+  <main id='startscreen'>
+  <nav>
+    <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
+    <audio 
+    controls='true' 
+    autoplay="autoplay"
+    src="audio/Alpha.mp3"
+    >
+    If stream does not start automatically press the play button
+  </audio >
+  </nav>
 
-
-     </nav>
-
-      <h1 class='startscreen'>PANGDEMIC</h1>
-      <section>      
-      <h2>Controls:</h2>
-      <p>Move: Push <b>Left</b> and <b>Right</b> arrows &#9664  --  &#9654 </p>
-      <p>Shoot: Push <b>Spacebar &#9644&#9644&#9644&#9644 </b></p>
-      </section>
-      <div class='button'>
-        <button id='start'>Start Game</button>
-        <button id='ranking'>Ranking</button>
-      </div>
-    </main>
+  <h1 class='startscreen'>PANGDEMIC</h1>
+  <section>      
+  <h2>Controls:</h2>
+  <p>Move: Push <b>Left</b> and <b>Right</b> arrows &#9664  --  &#9654 </p>
+  <p>Shoot: Push <b>Spacebar &#9644&#9644&#9644&#9644 </b></p>
+  </section>
+  <div class='button'>
+    <button id='start'>Start Game</button>
+    <button id='ranking'>Ranking</button>
+  </div>
+</main> 
  `)
 
   document.body.appendChild(splashScreen)
+
+  const audioVol = splashScreen.querySelector('audio')
+  audioVol.volume = 0.2
 
   const startButton = splashScreen.querySelector('#start')
   startButton.addEventListener('click', function () {
@@ -63,10 +70,8 @@ function createGameScreen () {
   </nav>
   <audio
     controls="true"
-    width="150px"
-    height="25"
-    src="audio/PANG - Barcelona.mp3"
-  >
+    autoplay="autoplay"
+    src="audio/Plains of Passage.mp3">
     If stream does not start automatically press the play button
   </audio>
 
@@ -90,6 +95,8 @@ function createGameScreen () {
   `)
 
   document.body.appendChild(gameScreen)
+  const audioVol = gameScreen.querySelector('audio')
+  audioVol.volume = 0.05
 }
 
 function removeScreen () {
@@ -97,56 +104,77 @@ function removeScreen () {
 }
 
 // game over screen
-function createGameOverScreen (score) {
+function createGameOverScreen (score, time) {
   gameOverScreen = buildDom(`
-  <main class='end-game'>
-  <nav><a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
-  <audio controls='true' width="150px" height="25" allow=”autoplay” autoplay="autoplay" src="audio/PANG Angkor wat.mp3">If stream does not start automatically press the play button</audio >
+  <main class="end-game">
+  <nav>
+    <a href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
+    <audio
+      controls="true"
+      autoplay="autoplay"
+      src="audio/Way.mp3"
+    >
+      If stream does not start automatically press the play button
+    </audio>
   </nav>
 
-    <h1 class='game-over'>Game over</h1>
-    <p class='score'>Your score: <span> ${score} </span></p>
-    <button>Restart</button>
-  </main>
+  <h1 class="game-over">Game over</h1>
+  <p class="score">Your score: <span> ${score} </span></p>
+  <button>Restart</button>
+</main>
   `)
-
-  const restartButton = gameOverScreen.querySelector('button')
-  restartButton.addEventListener('click', startGame)
+  if (time === 0) {
+    const timeOver = gameOverScreen.querySelector('h1')
+    timeOver.innerHTML = 'Game Over <br>time is up!!!'
+  }
 
   document.body.appendChild(gameOverScreen)
+
+  const audioVol = gameOverScreen.querySelector('audio')
+  audioVol.volume = 0.1
+  const restartButton = gameOverScreen.querySelector('button')
+  restartButton.addEventListener('click', startGame)
 }
 
 function rankingScreen (name, score) {
   removeScreen()
+  safeNameScore(name, score)
   rank = buildDom(`
-  <main class='ranking'>
-
+  <main class="ranking">
   <nav>
-  <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
-  <audio controls='true' width="150px" height="25" allow=”autoplay”  src="audio/PANG Angkor wat.mp3">If stream does not start automatically press the play button</audio >
-  
+    <a href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
+    <audio
+      controls="true"
+      autoplay="autoplay"
+      src="audio/High Score.mp3"
+    >
+      If stream does not start automatically press the play button
+    </audio>
   </nav>
 
-    <h1 class='ranking'>Ranking</h1>
-    <ol class='rank-list'>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-      <li>${name}${score}</li>
-    </ol>
-    <button>Restart</button>
-  </main>
+  <h1 class="ranking">Ranking</h1>
+  <ol class="rank-list">
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+    <li>${name}  ${score}</li>
+  </ol>
+  <button>Restart</button>
+</main>
   `)
+
+  document.body.appendChild(rank)
+
+  const audioVol = rank.querySelector('audio')
+  audioVol.volume = 0.05
 
   const restartButton = rank.querySelector('button')
   restartButton.addEventListener('click', startGame)
-
-  document.body.appendChild(rank)
 }
 
 // start the game , end the game
@@ -158,20 +186,20 @@ function startGame () {
   game.gameScreen = gameScreen
 
   // Start the game
-  game.start(1)
+  game.start(5)
 }
 
-function endGame (score) {
+function endGame (name, score, time) {
   removeScreen()
-  createGameOverScreen(score)
+  createGameOverScreen(score, time)
+  safeNameScore(name, score)
 }
 
-function ranking () {
-  removeScreen()
-  rankingScreen()
+function safeNameScore (name, score) {
+
 }
 
 // Run the function   `createSplashScreen` once all the resources are loaded
 window.addEventListener('load', createSplashScreen)
 
-//autoplay="autoplay"
+// autoplay="autoplay"

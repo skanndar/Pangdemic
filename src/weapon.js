@@ -33,12 +33,14 @@ class Weapon {
     this.screenTop = 0 //  y = 0
     this.screenBottom = this.canvas.height
     this.weapon = new Image(); this.weapon.src = 'img/img/pillMove.png' // 390 x 512 (9x12) last two positions are blank
-  }
+}
 
   shooting () {
+
     this.sourceWidth = Math.floor(this.currentFrame % this.columns) * this.spriteWidth
     this.sourceHeight = 0 // Math.floor(Math.random() * 12) * this.spriteHeight
     this.currentFrame = (this.currentFrame + 1) % this.frames
+    
   }
 
   draw () {

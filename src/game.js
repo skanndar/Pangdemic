@@ -1,7 +1,7 @@
 'use strict'
 
 class Game {
-  constructor () {
+  constructor (name) {
     this.player = null
     this.virusSizes = [120, 75, 45]
     this.gameIsOver = false
@@ -14,8 +14,10 @@ class Game {
     this.shoot = false
     this.virus = []
     this.killedV = 0
-    this.time = 90 // seconds
+    this.time = 60 // seconds
     this.timeoutId = null
+    this.name = name
+    this.shootSound = new Audio('audio/Sonido disparo.mp3')
   }
 
   timer () {
@@ -59,6 +61,9 @@ class Game {
       } else if (event.key === ' ') {
         // console.log('object :', this.weapon.shoot)
         this.shoot = true
+        this.shootSound.currentTime = 0
+        this.shootSound.volume = 0.2
+        this.shootSound.play()
       }
     }
     function handleKeyUp (event) {
@@ -109,6 +114,9 @@ class Game {
           this.bullets.push(newbullet)
         }
       }
+      if (this.time <= 0) {
+        this.gameOver()
+      }
 
       const bulletsOnScreen = this.bullets.filter(function (bullet) {
         bullet.updatePosition()
@@ -116,12 +124,6 @@ class Game {
         return isInsideScreen // true or false
       })
       this.bullets = bulletsOnScreen
-
-      // const isInsideScreen = virus.isInsideScreen()
-
-      // return isInsideScreen // true false
-
-      // this.viruses = enemiesOnScreen
 
       // 2. CLEAR THE CANVAS
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -141,7 +143,7 @@ class Game {
         v.draw()
       })
 
-      // 4. TERMINATE LOOP IF GAME IS OVER
+      // 4. TERMINATE LOOP IF GAME IS OVER or time is up
       if (this.gameIsOver === false) {
         requestAnimationFrame(loop) // animation loop
       }
@@ -191,8 +193,8 @@ class Game {
       })
       if (this.gameWin()) {
         clearInterval(this.timeoutId)
-        this.gameIsOver=true
-        rankingScreen()
+        this.gameIsOver = true
+        rankingScreen(this.name, this.score)
       }
     })
   }
@@ -211,7 +213,7 @@ class Game {
   gameOver () {
     clearInterval(this.timeoutId)
     this.gameIsOver = true
-    endGame(this.score) // add time left for points
+    endGame(this.name, this.score, this.time) // add time left for points
   }
 
   updateGameStats () {

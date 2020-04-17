@@ -17,6 +17,7 @@ class Game {
     this.time = 60 // seconds
     this.timeoutId = null
     this.name = name
+    this.level = 'regular'
     this.shootSound = new Audio('audio/Sonido disparo.mp3')
     this.infection = new Audio('audio/219195__airborne80__infection.mp3')
     this.lastlife = new Audio('audio/183940__bigfriendlyjiant__news-h5n1-02.flac')
@@ -181,7 +182,7 @@ class Game {
           this.lastlife.currentTime = 0
           this.lastlife.volume = 0.2
           this.lastlife.play()
-        } else{
+        } else {
           this.restartPositions(v)
         }
       }
@@ -191,18 +192,14 @@ class Game {
           bullet.y = -111
           const newStrength = v.strength + 1
           const virusX = v.x
-          this.virus[virusIndex] = undefined
-          console.log('this.gameWin() :', this.gameWin())
-
-          if (newStrength > 2) {
+          if (this.level === 'regular') { this.virus[virusIndex] = undefined }
+          if (newStrength >= this.virusSizes.length) {
             return
           }
           const virusLeft = new Virus(this.canvas, this.virusSizes[newStrength], 'left', newStrength, virusX)
           const virusRight = new Virus(this.canvas, this.virusSizes[newStrength], 'right', newStrength, virusX)
 
           this.virus.push(virusLeft, virusRight)
-          // this.virus.push(this.newVirus)
-          // this.virus.push(this.newVirus)
         }
       })
       if (this.gameWin()) {

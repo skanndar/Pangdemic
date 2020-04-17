@@ -55,17 +55,17 @@ class Virus {
       this.y = this.canvas.height - this.size
       // bounce the ball
       this.ySpeed *= -this.bounce
-    } else if (this.y <= this.size) {
+    } else if (this.y + this.size <= this.size) {
       this.wallbounce.currentTime = 0
       this.wallbounce.volume = 0.2
       this.wallbounce.play()
       this.y = this.size
-      this.ySpeed *= +this.bounce // '+' makes magnetic ceiling, '-' makes higher acceleration
+      this.ySpeed *= -this.bounce // '+' makes magnetic ceiling, '-' makes higher acceleration
     }
   }
 
   startPosition () {
-    this.y = 500
+    this.y = 100
     this.x = 200
     // this.draw()
   }

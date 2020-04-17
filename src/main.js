@@ -9,6 +9,8 @@ let gameOverScreen // game over screen element
 let rank
 let scoreArray
 let name = ''
+const hoverSound = new Audio('audio/251389__deadsillyrabbit__button-hover-ogg.ogg')
+const crowSound = new Audio('audio/512781__iwanplays__croworraven1.wav')
 
 // used to create HTML elements
 function buildDom (htmlString) {
@@ -25,7 +27,7 @@ function createSplashScreen () {
   splashScreen = buildDom(`
   <main id='startscreen'>
   <nav>
-    <a href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
+    <a class='logo' href="index.html"><img src="img/img/iconMask.png" alt="logo"></a>
     <audio 
     controls='true' 
     autoplay="autoplay"
@@ -38,10 +40,10 @@ function createSplashScreen () {
   <h1 class='startscreen'>PANGDEMIC</h1>
   
   <div id="register-name">
-    <form>
+    <div class='form'>
       <label>Your name:</label>
-      <input id="username" type="text" placeholder="My name" value="" />
-    </form>
+      <input id="username" type="text" value="" />
+    </div>
   </div>
   <div class='button'>
     <button id='start'>Start Game</button>
@@ -68,9 +70,20 @@ function createSplashScreen () {
     }
     startGame(name)
   })
+  startButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
+  })
+
   const rankingButton = splashScreen.querySelector('#ranking')
   rankingButton.addEventListener('click', function () {
     rankingScreen()
+  })
+  rankingButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
+  })
+  const logo = splashScreen.querySelector('.logo')
+  logo.addEventListener('mouseenter', function () {
+    crowSound.play()
   })
 }
 
@@ -79,29 +92,31 @@ function createGameScreen () {
   gameScreen = buildDom(`
   <main class="game container">
   <nav>
-    <a href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
-  </nav>
+    <a class='logo' href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
+  
   <audio
     controls="true"
     autoplay="autoplay"
     src="audio/Plains of Passage.mp3">
     If stream does not start automatically press the play button
   </audio>
+  </nav>
 
   <div class="canvas-container">
     <canvas></canvas>
   </div>
-  <footer>
-    <div class="time"></div>
+    <footer>
+    <div class="time"></div >
+
     <div class="lives-score">
-    <div class="lives">
-      <span class="label">Lives:</span>
-      <span class="value"></span>
-    </div>
-    <div class="score">
-      <span class="label">Score:</span>
-      <span class="value"></span>
-    </div>
+      <div class="lives">
+        <span class="label">Lives:</span>
+        <span class="value"></span>
+      </div>
+      <div class="score">
+        <span class="label">Score:</span>
+        <span class="value"></span>
+      </div>
     </div>
   </footer>
 </main>
@@ -110,6 +125,10 @@ function createGameScreen () {
   document.body.appendChild(gameScreen)
   const audioVol = gameScreen.querySelector('audio')
   audioVol.volume = 0.05
+  const logo = gameScreen.querySelector('.logo')
+  logo.addEventListener('mouseenter', function () {
+    crowSound.play()
+  })
 }
 
 function removeScreen () {
@@ -121,7 +140,7 @@ function createGameOverScreen (score, time) {
   gameOverScreen = buildDom(`
   <main class="end-game">
   <nav>
-    <a href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
+    <a class='logo' href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
     <audio
       controls="true"
       autoplay="autoplay"
@@ -151,6 +170,10 @@ function createGameOverScreen (score, time) {
     startGame(name)
   }
   )
+  const logo = gameOverScreen.querySelector('.logo')
+  logo.addEventListener('mouseenter', function () {
+    crowSound.play()
+  })
 }
 
 function rankingScreen (name, score) {
@@ -161,7 +184,7 @@ function rankingScreen (name, score) {
   rank = buildDom(`
   <main class="ranking">
   <nav>
-    <a href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
+    <a class='logo' href="index.html"><img src="img/img/iconMask.png" alt="logo" /></a>
     <audio
       controls="true"
       autoplay="autoplay"
@@ -270,6 +293,10 @@ function rankingScreen (name, score) {
   restartButton.addEventListener('click', function () {
     name = 'ANONYMOUS'
     startGame(name)
+  })
+  const logo = rank.querySelector('.logo')
+  logo.addEventListener('mouseenter', function () {
+    crowSound.play()
   })
 }
 

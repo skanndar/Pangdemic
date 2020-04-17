@@ -191,13 +191,17 @@ function createGameOverScreen (score, time) {
 
   const audioVol = gameOverScreen.querySelector('audio')
   audioVol.volume = 0.1
+
   const restartButton = gameOverScreen.querySelector('button')
   restartButton.addEventListener('click', function () {
     name = (name || 'ANONYMOUS')
 
-    startGame(name)
+    startGame(name, 'regular')
   }
   )
+  restartButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
+  })
   const rankingButton = gameOverScreen.querySelector('#ranking')
   rankingButton.addEventListener('click', function () {
     rankingScreen()
@@ -355,11 +359,15 @@ function rankingScreen (name, score) {
   deathButton.addEventListener('mouseenter', function () {
     hoverSound.play()
   })
+  
 
   const restartButton = rank.querySelector('button')
   restartButton.addEventListener('click', function () {
     name = (name || 'ANONYMOUS')
-    startGame(name)
+    startGame(name, 'regular')
+  })
+  restartButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
   })
   const logo = rank.querySelector('.logo')
   logo.addEventListener('mouseenter', function () {

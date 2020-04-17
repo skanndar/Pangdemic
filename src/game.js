@@ -3,7 +3,7 @@
 class Game {
   constructor (name, level) {
     this.player = null
-    this.virusSizes = [120, 75, 45]
+    this.virusSizes = [120, 75, 45,33]
     this.gameIsOver = false
     this.score = 0
     this.gameScreen = null
@@ -189,11 +189,21 @@ class Game {
         if (bullet.didCollide(v)) {
           this.killedV++
           bullet.y = -111
-          const newStrength = v.strength + 1
+          let newStrength = v.strength + 1
           const virusX = v.x
-          if (this.level === 'regular') { this.virus[virusIndex] = undefined }
-          if (newStrength >= this.virusSizes.length) {
-            return
+
+          // if (this.level === 'regular') {
+          //   this.virus[virusIndex] = undefined
+          //   newStrength >= this.virusSizes.length
+          // } else { newStrength = 2 }
+
+          this.virus[virusIndex] = undefined
+          if (this.level === 'regular') {
+            if (newStrength >= this.virusSizes.length) {
+              return
+            }
+          } else if (newStrength >= this.virusSizes.length) {
+            newStrength = 2
           }
           const virusLeft = new Virus(this.canvas, this.virusSizes[newStrength], 'left', newStrength, virusX)
           const virusRight = new Virus(this.canvas, this.virusSizes[newStrength], 'right', newStrength, virusX)

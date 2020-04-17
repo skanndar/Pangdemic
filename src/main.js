@@ -79,7 +79,6 @@ function createSplashScreen () {
     hoverSound.play()
   })
 
-
   const deathButton = splashScreen.querySelector('#start-death')
   deathButton.addEventListener('click', function () {
     name = splashScreen.querySelector('#username').value
@@ -92,7 +91,6 @@ function createSplashScreen () {
   deathButton.addEventListener('mouseenter', function () {
     hoverSound.play()
   })
-
 
   const rankingButton = splashScreen.querySelector('#ranking')
   rankingButton.addEventListener('click', function () {
@@ -144,7 +142,7 @@ function createGameScreen () {
 
   document.body.appendChild(gameScreen)
   const audioVol = gameScreen.querySelector('audio')
-  audioVol.volume = 0.05
+  audioVol.volume = 0.02
   const logo = gameScreen.querySelector('.logo')
   logo.addEventListener('mouseenter', function () {
     crowSound.play()
@@ -190,7 +188,7 @@ function createGameOverScreen (score, time) {
   document.body.appendChild(gameOverScreen)
 
   const audioVol = gameOverScreen.querySelector('audio')
-  audioVol.volume = 0.1
+  audioVol.volume = 0.02
 
   const restartButton = gameOverScreen.querySelector('button')
   restartButton.addEventListener('click', function () {
@@ -346,7 +344,7 @@ function rankingScreen (name, score) {
   // document.body.appendChild(rank)
 
   const audioVol = rank.querySelector('audio')
-  audioVol.volume = 0.05
+  audioVol.volume = 0.02
 
   const deathButton = rank.querySelector('#start-death')
   deathButton.addEventListener('click', function () {
@@ -359,7 +357,6 @@ function rankingScreen (name, score) {
   deathButton.addEventListener('mouseenter', function () {
     hoverSound.play()
   })
-  
 
   const restartButton = rank.querySelector('button')
   restartButton.addEventListener('click', function () {

@@ -20,8 +20,8 @@ class Game {
     this.level = 'regular'
     this.shootSound = new Audio('audio/Sonido disparo.mp3')
     this.infection = new Audio('audio/219195__airborne80__infection.mp3')
-    this.lastlife = new Audio('audio/183940__bigfriendlyjiant__news-h5n1-02.flac')
-    this.smashed = new Audio('audio/266535__gcastanera__smashed-bug.wav')
+    this.lastlife = new Audio('audio/183940__bigfriendlyjiant__news-h5n1-02.mp3')
+    this.smashed = new Audio('audio/266535__gcastanera__smashed-bug.mp3')
   }
 
   timer () {

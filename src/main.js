@@ -10,7 +10,7 @@ let rank
 let scoreArray
 let name = ''
 const hoverSound = new Audio('audio/251389__deadsillyrabbit__button-hover-ogg.ogg')
-const crowSound = new Audio('audio/512781__iwanplays__croworraven1.wav')
+const crowSound = new Audio('audio/512781__iwanplays__croworraven1.mp3')
 
 // used to create HTML elements
 function buildDom (htmlString) {
@@ -166,7 +166,8 @@ function createGameOverScreen (score, time) {
   audioVol.volume = 0.1
   const restartButton = gameOverScreen.querySelector('button')
   restartButton.addEventListener('click', function () {
-    name = 'ANONYMOUS'
+    name = (name || 'ANONYMOUS')
+
     startGame(name)
   }
   )
@@ -254,24 +255,25 @@ function rankingScreen (name, score) {
 
   // convert it back into an array in order to get data from local storage
   const scoreBoard = JSON.parse(localStorage.getItem('scoreArray'))
-  scoreBoard.sort(function (a, b) {
-    return b.score - a.score
-  })
-  console.log('SCOREBOARD', scoreBoard)
+  if (scoreBoard) {
+    scoreBoard.sort(function (a, b) {
+      return b.score - a.score
+    })
+    console.log('SCOREBOARD', scoreBoard)
 
-  // print the best 5 scores into a table
-  for (let i = 0; i < 10; i++) {
-    const playersName = rank.querySelector('#name' + (i + 1))
-    const playerScore = rank.querySelector('#score' + (i + 1))
-    if (scoreBoard[i]) {
-      playersName.innerHTML = scoreBoard[i].name
-      playerScore.innerHTML = scoreBoard[i].score + ' points'
-    } else {
-      playersName.innerHTML = ''
-      playerScore.innerHTML = ''
+    // print the best 5 scores into a table
+    for (let i = 0; i < 10; i++) {
+      const playersName = rank.querySelector('#name' + (i + 1))
+      const playerScore = rank.querySelector('#score' + (i + 1))
+      if (scoreBoard[i]) {
+        playersName.innerHTML = scoreBoard[i].name
+        playerScore.innerHTML = scoreBoard[i].score + ' points'
+      } else {
+        playersName.innerHTML = ''
+        playerScore.innerHTML = ''
+      }
     }
   }
-
   // print the score to the screen
   if (score) {
     const span = rank.querySelector('span')
@@ -291,7 +293,7 @@ function rankingScreen (name, score) {
 
   const restartButton = rank.querySelector('button')
   restartButton.addEventListener('click', function () {
-    name = 'ANONYMOUS'
+    name = (name || 'ANONYMOUS')
     startGame(name)
   })
   const logo = rank.querySelector('.logo')

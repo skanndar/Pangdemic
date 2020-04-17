@@ -46,8 +46,12 @@ function createSplashScreen () {
     </div>
   </div>
   <div class='button'>
-    <button id='start'>Start Game</button>
+    <div class='level'>
+     <button id='start'>Regular</button>
+     <button id='start-death'>Death Sentence</button>
+    </div>
     <button id='ranking'>Ranking</button>
+    
   </div>
   <section>      
   <h2>Controls:</h2>
@@ -68,11 +72,27 @@ function createSplashScreen () {
     if (name === '') {
       name = 'ANONYMOUS'
     }
-    startGame(name)
+    startGame(name, 'regular')
   })
+
   startButton.addEventListener('mouseenter', function () {
     hoverSound.play()
   })
+
+
+  const deathButton = splashScreen.querySelector('#start-death')
+  deathButton.addEventListener('click', function () {
+    name = splashScreen.querySelector('#username').value
+    if (name === '') {
+      name = 'ANONYMOUS'
+    }
+    startGame(name, 'death')
+  })
+
+  deathButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
+  })
+
 
   const rankingButton = splashScreen.querySelector('#ranking')
   rankingButton.addEventListener('click', function () {
@@ -152,7 +172,14 @@ function createGameOverScreen (score, time) {
 
   <h1 class="game-over">Game over</h1>
   <p class="score">Your score: <span> ${score} </span></p>
-  <button>Restart</button>
+  <div class='button'>
+    <div class='level'>
+     <button id='start'>Regular</button>
+     <button id='start-death'>Death Sentence</button>
+    </div>
+    <button id='ranking'>Ranking</button>
+    
+  </div>
 </main>
   `)
   if (time === 0) {
@@ -171,6 +198,26 @@ function createGameOverScreen (score, time) {
     startGame(name)
   }
   )
+  const rankingButton = gameOverScreen.querySelector('#ranking')
+  rankingButton.addEventListener('click', function () {
+    rankingScreen()
+  })
+  rankingButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
+  })
+
+  const deathButton = gameOverScreen.querySelector('#start-death')
+  deathButton.addEventListener('click', function () {
+    if (name === '') {
+      name = 'ANONYMOUS'
+    }
+    startGame(name, 'death')
+  })
+
+  deathButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
+  })
+
   const logo = gameOverScreen.querySelector('.logo')
   logo.addEventListener('mouseenter', function () {
     crowSound.play()
@@ -249,7 +296,13 @@ function rankingScreen (name, score) {
     </tbody>
   </table>
 </div>
-  <button>Restart</button>
+<div class='button'>
+<div class='level'>
+ <button id='start'>Regular</button>
+ <button id='start-death'>Death Sentence</button>
+</div>
+
+</div>
 </main>
   `)
 
@@ -291,6 +344,18 @@ function rankingScreen (name, score) {
   const audioVol = rank.querySelector('audio')
   audioVol.volume = 0.05
 
+  const deathButton = rank.querySelector('#start-death')
+  deathButton.addEventListener('click', function () {
+    if (name === '') {
+      name = 'ANONYMOUS'
+    }
+    startGame(name, 'death')
+  })
+
+  deathButton.addEventListener('mouseenter', function () {
+    hoverSound.play()
+  })
+
   const restartButton = rank.querySelector('button')
   restartButton.addEventListener('click', function () {
     name = (name || 'ANONYMOUS')
@@ -320,11 +385,11 @@ function safeNameScore (name, score) {
   localStorage.setItem('scoreArray', JSON.stringify(scoreArray))
 }
 // start the game , end the game
-function startGame (name) {
+function startGame (name, level) {
   removeScreen()
   createGameScreen()
 
-  game = new Game(name)
+  game = new Game(name, level)
   game.gameScreen = gameScreen
 
   // Start the game

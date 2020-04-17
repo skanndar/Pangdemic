@@ -1,7 +1,7 @@
 'use strict'
 
 class Game {
-  constructor (name) {
+  constructor (name, level) {
     this.player = null
     this.virusSizes = [120, 75, 45]
     this.gameIsOver = false
@@ -9,7 +9,6 @@ class Game {
     this.gameScreen = null
     this.canvas = null
     this.ctx = null
-    // this.lives = 10
     this.bullets = []
     this.shoot = false
     this.virus = []
@@ -17,7 +16,7 @@ class Game {
     this.time = 60 // seconds
     this.timeoutId = null
     this.name = name
-    this.level = 'regular'
+    this.level = level
     this.shootSound = new Audio('audio/Sonido disparo.mp3')
     this.infection = new Audio('audio/219195__airborne80__infection.mp3')
     this.lastlife = new Audio('audio/183940__bigfriendlyjiant__news-h5n1-02.mp3')

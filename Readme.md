@@ -19,19 +19,21 @@ The game is won when the player destroys all the viruses.
 2. main.js
 3. game.js
 4. player.js
-5. obstacle.js
-6. bonus.js
+5. viruses.js
+6. weapon.js
 
 ### 1. index.html file
 
 ### 2. Main file
 
 - buildDom
-- createStartScreen / removeStartScreen
-- createGameScreen / removeGameScreen
-- createGameOverScreen / removeGameOverScreen
-- createWinScreen / removeWinScreen
+- createSplashScreen
+- createGameScreen
+- createGameOverScreen
+- rankingScreen
+- removeScreen
 - startGame / endGame
+- safeNameScore 
 
 ### 3. Game Constructor
 
